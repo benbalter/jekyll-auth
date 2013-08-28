@@ -18,7 +18,7 @@ class AuthSite < Sinatra::Base
     elsif ENV['GITHUB_ORG_ID']
       github_organization_authenticate!(ENV['GITHUB_ORG_ID'])
     else
-      puts "ERROR: Jekyll Auth is refusing to serve yoru site."
+      puts "ERROR: Jekyll Auth is refusing to serve your site."
       puts "Looks like your oauth credentials are not properly configured. RTFM."
       halt 401
     end
