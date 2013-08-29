@@ -1,6 +1,6 @@
 # Jekyll Auth
 
-*A simple way to use Github Oauth to serve a protected jekyll site to your GitHub organization*
+*A simple way to use Github OAuth to serve a protected jekyll site to your GitHub organization*
 
 ## The problem
 
