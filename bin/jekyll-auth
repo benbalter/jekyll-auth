@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'commander/import'
+require 'rake'
+require 'jekyll-auth'
+
+program :version, '0.1.0'
+program :description, 'A simple way to use Github Oauth to serve a protected jekyll site to your GitHub organization'
+
+command :new do |c|
+  c.syntax = 'jekyll-auth new [options]'
+  c.action do |args, options|
+    source = File.expand_path( "../", File.dirname(__FILE__) )
+    destination = Dir.pwd
+    say "Initaiting new Jekyll Auth site in #{destination}"
+
+    ["Rakefile", "Config.ru"].each do |file|
+      if File.exist? "#{destination}/#{file}"
+        say "* #{destination}/#{file} already exists... skipping."
+      else
+        say "* creating #{destination}/#{file}"
+        FileUtils.cp "#{source}/#{file}" "#{destination}/#{file}"
+      end
+    end
+
+    sh "#{source}/script/setup"
+
+    say "Setup complete. Run jekyll-auth to view the authenticated site."
+  end
+end
+
+command :serve do |c|
+  c.syntax = "jekyll-auth [options]"
+  c.option '--[no-]auth', 'preview site without authentication'
+  c.action do |args, options|
+    options.default :auth => true
+
+    if options.auth
+
+      # Ensure environmental variables are set
+      ["GITHUB_CLIENT_ID", "GITHUB_CLIENT_SECRET"].each do |var|
+        next unless ENV[var].nil?
+        say "Whoops. Looks like you forgot to tell Jekyll Auth about your app"
+        say "Be sure to run export GITHUB_CLIENT_ID=[client id], export GITHUB_CLIENT_SECRET=[client secret], and export GITHUB_ORG_ID=[org id] (or GITHUB_TEAM_ID)"
+        say "See the readme for more information on where to find these"
+        exit(1)
+      end
+
+      say "Spinning up the server with authentication..."
+      say "To preview the site without authentication, use the --no-auth flag"
+      sh "bundle exec rake assets:precompile"
+      sh "bundle exec rackup -p 4000"
+    else
+      say "Spinning up the server sans authentication..."
+      sh "bundle exec jekyll serve -w"
+    end
+  end
+end
+
+default_command :serve

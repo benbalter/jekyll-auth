@@ -27,24 +27,17 @@ But what if you only want to share that site with a select number of people? Bef
 
 ### Add Jekyll Oauth to your site
 
-#### Copy/Paste
-
-To setup your site to work with Heroku, simply copy the contents of this repository (sans `readme.md`) over to your existing (or new) Jekyll site. If you've got an existing `_config.yml` file, you'll want to merge this repository's `exclude` values with your own to avoid any conflicts.
-
-#### The Git Way
-
-The fastest way (although potentially slightly more complex) to add Jekyll Auth to your site is to run the following command from your project directory (assuming it's already in Git):
+First, add `gem 'jekyll-auth'` to your `Gemfile` or if you don't already have a `Gemfile`, create a file called `Gemfile` in the root of your site's repository with the following content:
 
 ```
-git remote add jekyll-auth https://github.com/benbalter/jekyll-auth && git pull jekyll-auth master
+source "https://rubygems.org"
+
+gem 'jekyll-auth'
 ```
-### Configuring Heroku
 
-You'll need to tell Heroku a bit about yourself. You can find these on [your application page](https://github.com/settings/applications).
+Next, run `cd` into your project's directory and run `bundle install`.
 
-#### The easy way
-
-Run the command `script/setup` from your project's root director. Jekyll Auth will run you through everything you need to set up your site with Jekyll Auth.
+Finally, run "jekyll-auth new" which will run you through everything you need to set up your site with Jekyll Auth.
 
 #### The manual way
 

@@ -2,11 +2,14 @@
 
 set -e
 
-script/bootstrap
-
 echo " "
 echo "Looks like we're setting up Heroku for Jekyll Auth. Let's do this."
 echo " "
+
+git add Gemfile
+git add Rakefile
+git add config.ru
+git commit -m '[jekyll-auth] initial setup'
 
 if `git remote | grep -q "heroku"`; then
   echo "It seems you've already got a Heroku app set up. We'll jump right into things."
@@ -25,7 +28,6 @@ else
   fi
 
 fi
-
 
 echo " "
 echo "Awesome. Now let's teach Heroku about our GitHub app."
