@@ -9,7 +9,8 @@ program :version, '0.1.0'
 program :description, 'A simple way to use Github Oauth to serve a protected jekyll site to your GitHub organization'
 
 command :new do |c|
-  c.syntax = 'jekyll-auth new [options]'
+  c.syntax = 'jekyll-auth new'
+  c.description = "Initialize an existing Jekyll site as a Jekyll Auth site"
   c.action do |args, options|
     source = File.expand_path( "../", File.dirname(__FILE__) )
     destination = Dir.pwd
@@ -24,37 +25,60 @@ command :new do |c|
       end
     end
 
-    sh "#{source}/script/setup"
+    command(:setup).run if agree "Would you like to set up Heroku now? (Y/n)"
 
     say "Setup complete. Run jekyll-auth to view the authenticated site."
   end
 end
 
-command :serve do |c|
-  c.syntax = "jekyll-auth [options]"
-  c.option '--[no-]auth', 'preview site without authentication'
+command :setup do |c|
+  c.syntax = "jekyll-auth setup"
+  c.description = "Configure Heroku for use with your Jekyll Auth site"
   c.action do |args, options|
-    options.default :auth => true
+    sh "#{source}/script/setup"
+  end
+end
 
-    if options.auth
+command :serve do |c|
+  c.syntax = "jekyll-auth serve"
+  c.description = "Run Jekyll Auth site locally"
+  c.action do |args, options|
 
-      # Ensure environmental variables are set
-      ["GITHUB_CLIENT_ID", "GITHUB_CLIENT_SECRET"].each do |var|
-        next unless ENV[var].nil?
-        say "Whoops. Looks like you forgot to tell Jekyll Auth about your app"
-        say "Be sure to run export GITHUB_CLIENT_ID=[client id], export GITHUB_CLIENT_SECRET=[client secret], and export GITHUB_ORG_ID=[org id] (or GITHUB_TEAM_ID)"
-        say "See the readme for more information on where to find these"
-        exit(1)
-      end
-
-      say "Spinning up the server with authentication..."
-      say "To preview the site without authentication, use the --no-auth flag"
-      sh "bundle exec rake assets:precompile"
-      sh "bundle exec rackup -p 4000"
-    else
-      say "Spinning up the server sans authentication..."
-      sh "bundle exec jekyll serve -w"
+    # Ensure environmental variables are set
+    ["GITHUB_CLIENT_ID", "GITHUB_CLIENT_SECRET"].each do |var|
+      next unless ENV[var].nil?
+      say "Whoops. Looks like you forgot to tell Jekyll Auth about your app"
+      say "Be sure to run export GITHUB_CLIENT_ID=[client id], export GITHUB_CLIENT_SECRET=[client secret], and export GITHUB_ORG_ID=[org id] (or GITHUB_TEAM_ID)"
+      say "See the readme for more information on where to find these"
+      exit(1)
     end
+
+    # build site
+    command(:build).run
+
+    say "Spinning up the server with authentication..."
+    say "To preview the site without authentication, use the jekyll-auth preview command"
+    sh "bundle exec rackup -p 4000"
+
+  end
+end
+
+command :build do |c|
+  c.syntax = 'jekyll-auth build'
+  c.description = "Build Jekyll site"
+  c.action do |args, options|
+    say "building the site..."
+    sh "bundle exec rake assets:precompile"
+    say "site built."
+  end
+end
+
+command :preview do |c|
+  c.syntax = 'jekyll-auth preview'
+  c.description = "Preview Jekyll site locally without authentication"
+  c.action do |args, options|
+    say "Spinning up the server sans authentication..."
+    sh "bundle exec jekyll serve -w"
   end
 end
 

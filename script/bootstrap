@@ -2,8 +2,6 @@
 
 set -e
 
-script/branding
-
 echo "Let's get set up here..."
 bundle install
 echo "Boom."
