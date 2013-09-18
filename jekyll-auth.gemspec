@@ -10,11 +10,13 @@ Gem::Specification.new do |s|
   s.email                 = "ben@balter.com"
   s.homepage              = "https://github.com/benbalter/jekyll-auth"
   s.license               = "MIT"
-  s.files                 = ["lib/jekyll-auth.rb", "bin/jekyll-auth", "config.ru", "Rakefile"]
+  s.files                 = ["lib/jekyll-auth.rb", "bin/jekyll-auth", "config.ru", "Rakefile",
+                             "lib/jekyll-auth/auth-site.rb", "lib/jekyll-auth/jekyll-site.rb",
+                             "lib/jekyll-auth/version.rb"]
   s.executables           = ["jekyll-auth"]
 
   s.add_dependency("github-pages")
-  s.add_dependency("octokit", '~>1.25.0')
+  #s.add_dependency("octokit", '~>1.25.0')
   s.add_dependency("sinatra-index")
   s.add_dependency("sinatra_auth_github")
   s.add_dependency("commander")
