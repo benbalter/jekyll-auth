@@ -1,11 +1,12 @@
 #!/usr/bin/env ruby
+# Command-line interface for jekyll-auth
 
 require 'rubygems'
 require 'commander/import'
 require 'rake'
 require 'jekyll-auth'
 
-program :version, '0.1.0'
+program :version, JekyllAuth::VERSION
 program :description, 'A simple way to use Github Oauth to serve a protected jekyll site to your GitHub organization'
 
 command :new do |c|
@@ -16,7 +17,7 @@ command :new do |c|
     destination = Dir.pwd
     say "Initaiting new Jekyll Auth site in #{destination}"
 
-    ["Rakefile", "Config.ru"].each do |file|
+    ["Rakefile", "config.ru"].each do |file|
       if File.exist? "#{destination}/#{file}"
         say "* #{destination}/#{file} already exists... skipping."
       else
@@ -35,7 +36,51 @@ command :setup do |c|
   c.syntax = "jekyll-auth setup"
   c.description = "Configure Heroku for use with your Jekyll Auth site"
   c.action do |args, options|
-    sh "#{source}/script/setup"
+    git = nil
+    git.add "config.ru"
+    git.add "Rakefile"
+    git.commit "[Jekyll Auth] Initial setup"
+
+    if git.remotes.contains? "heroku"
+      say "Looks like you've already got heroku set up... skipping."
+    else
+
+      say "If you already created an app, enter it's name"
+      say "otherwise, hit enter, and we'll get you set up with one."
+      app = prompt "Heroku App name?"
+
+      if app == ""
+        say "Not a problem, let's create that heroku app for you."
+        sh "heroku create"
+      else
+        say "Great. Let's tell Heroku to use our existing app."
+        sh "heroku git:remote -a #{app}"
+      end
+    end
+
+    say "Awesome. Let's teach Heroku about our GitHub app."
+
+    client_id = prompt "What's your GitHub Client ID? "
+    sh "heroku config:set GITHUB_CLIENT_ID=#{client_id}"
+
+    client_secret = prompt "What's your GitHub Client Secret? "
+    sh "heroku config:set GITHUB_CLIENT_SECRET=#{client_secret}"
+
+    team_id = prompt "What's your GitHub Team ID? (you can skip this in favor of an org if you prefer) "
+    if team_id
+      sh "heroku config:set GITHUB_TEAM_ID=#{team_id}"
+    else
+      org_id = prompt "What's your GitHub Org ID? "
+      sh "heroku config:set GITHUB_ORG_ID=#{org_id}"
+    end
+
+    say "We're all set. Time to deploy our code to Heroku"
+    git.push "heroku", "master", "--force"
+
+    say "Let's check if it worked..."
+    sh "heroku open"
+
+    say "fin."
   end
 end
 
@@ -57,7 +102,7 @@ command :serve do |c|
     command(:build).run
 
     say "Spinning up the server with authentication..."
-    say "To preview the site without authentication, use the jekyll-auth preview command"
+    say "To preview the site without authentication, use the `jekyll serve` command"
     sh "bundle exec rackup -p 4000"
 
   end
@@ -70,15 +115,6 @@ command :build do |c|
     say "building the site..."
     sh "bundle exec rake assets:precompile"
     say "site built."
-  end
-end
-
-command :preview do |c|
-  c.syntax = 'jekyll-auth preview'
-  c.description = "Preview Jekyll site locally without authentication"
-  c.action do |args, options|
-    say "Spinning up the server sans authentication..."
-    sh "bundle exec jekyll serve -w"
   end
 end
 
