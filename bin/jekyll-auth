@@ -101,7 +101,7 @@ command :serve do |c|
     # build site
     command(:build).run
 
-    say "Spinning up the server with authentication..."
+    say "Spinning up the server with authentication. Use CTRL-C to stop."
     say "To preview the site without authentication, use the `jekyll serve` command"
     sh "bundle exec rackup -p 4000"
 
