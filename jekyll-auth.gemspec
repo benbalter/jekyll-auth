@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.executables           = ["jekyll-auth"]
 
   s.add_dependency("github-pages")
-  #s.add_dependency("octokit", '~>1.25.0')
   s.add_dependency("sinatra-index")
   s.add_dependency("sinatra_auth_github")
   s.add_dependency("commander")
