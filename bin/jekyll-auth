@@ -1,0 +1,135 @@
+#!/usr/bin/env ruby
+# Command-line interface for jekyll-auth
+
+require 'rubygems'
+require 'commander/import'
+require 'rake'
+require 'jekyll-auth'
+require 'git'
+
+def changed?
+  git = Git.init
+  git.diff('HEAD', 'config.ru').entries.length != 0 || git.diff('HEAD', 'Rakefile').entries.length != 0
+end
+
+program :version, JekyllAuth::VERSION
+program :description, 'A simple way to use Github Oauth to serve a protected jekyll site to your GitHub organization'
+
+command :new do |c|
+  c.syntax = 'jekyll-auth new'
+  c.description = "Initialize an existing Jekyll site as a Jekyll Auth site"
+  c.action do |args, options|
+    source = File.expand_path( "../", File.dirname(__FILE__) )
+    destination = Dir.pwd
+    say "Initaiting new Jekyll Auth site in #{destination}"
+
+    ["Rakefile", "config.ru"].each do |file|
+      if File.exist? "#{destination}/#{file}"
+        say "* #{destination}/#{file} already exists... skipping."
+      else
+        say "* creating #{destination}/#{file}"
+        FileUtils.cp "#{source}/#{file}", "#{destination}/#{file}"
+      end
+    end
+
+    command(:setup).run if agree "Would you like to set up Heroku now? (Y/n)"
+
+    if changed?
+      system "git status"
+      say "Looks like we've made some changes, you may want to do a git commit and git push sometime soon"
+    end
+
+    say "Setup complete. Run jekyll-auth to view the authenticated site."
+  end
+end
+
+command :setup do |c|
+  c.syntax = "jekyll-auth setup"
+  c.description = "Configure Heroku for use with your Jekyll Auth site"
+  c.action do |args, options|
+    git = Git.init
+    git.add "config.ru"
+    git.add "Rakefile"
+
+    if changed?
+      git.commit "[Jekyll Auth] Initial setup"
+    end
+
+    if git.remotes.any? { |remote| remote.name == "heroku" }
+      say "Looks like you've already got heroku set up... skipping."
+    else
+
+      say "If you already created an app, enter it's name"
+      say "otherwise, hit enter, and we'll get you set up with one."
+      app = ask "Heroku App name?"
+
+      if app == ""
+        say "Not a problem, let's create that heroku app for you."
+        sh "heroku create"
+      else
+        say "Great. Let's tell Heroku to use our existing app."
+        sh "heroku git:remote -a #{app}"
+      end
+    end
+
+    say "Awesome. Let's teach Heroku about our GitHub app."
+
+    client_id = ask "What's your GitHub Client ID? "
+    sh "heroku config:set GITHUB_CLIENT_ID=#{client_id}"
+
+    client_secret = ask "What's your GitHub Client Secret? "
+    sh "heroku config:set GITHUB_CLIENT_SECRET=#{client_secret}"
+
+    team_id = ask "What's your GitHub Team ID? (you can skip this in favor of an org if you prefer) "
+    if team_id
+      sh "heroku config:set GITHUB_TEAM_ID=#{team_id}"
+    else
+      org_id = ask "What's your GitHub Org ID? "
+      sh "heroku config:set GITHUB_ORG_ID=#{org_id}"
+    end
+
+    say "We're all set. Time to deploy our code to Heroku"
+    system "git push heroku master --force"
+
+    say "Let's check if it worked..."
+    sh "heroku open"
+
+    say "fin."
+  end
+end
+
+command :serve do |c|
+  c.syntax = "jekyll-auth serve"
+  c.description = "Run Jekyll Auth site locally"
+  c.action do |args, options|
+
+    # Ensure environmental variables are set
+    ["GITHUB_CLIENT_ID", "GITHUB_CLIENT_SECRET"].each do |var|
+      next unless ENV[var].nil?
+      say "Whoops. Looks like you forgot to tell Jekyll Auth about your app"
+      say "Be sure to run export GITHUB_CLIENT_ID=[client id], export GITHUB_CLIENT_SECRET=[client secret], and export GITHUB_ORG_ID=[org id] (or GITHUB_TEAM_ID)"
+      say "See the readme for more information on where to find these"
+      exit(1)
+    end
+
+    # build site
+    command(:build).run
+
+    say "Spinning up the server with authentication. Use CTRL-C to stop."
+    say "To preview the site without authentication, use the `jekyll serve` command"
+    sh "bundle exec rackup -p 4000"
+
+  end
+end
+
+command :build do |c|
+  c.syntax = 'jekyll-auth build'
+  c.description = "Build Jekyll site"
+  c.action do |args, options|
+    say "building the site..."
+    sh "bundle exec rake assets:precompile"
+    say "site built."
+  end
+end
+
+default_command :serve
