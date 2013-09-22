@@ -45,7 +45,7 @@ command :setup do |c|
       git.commit "[Jekyll Auth] Initial setup"
     end
 
-    if git.remotes.contains? "heroku"
+    if git.remotes.any? { |remote| remote.name == "heroku" }
       say "Looks like you've already got heroku set up... skipping."
     else
 
