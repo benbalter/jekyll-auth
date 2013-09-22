@@ -21,5 +21,6 @@ Gem::Specification.new do |s|
   s.add_dependency("sinatra_auth_github")
   s.add_dependency("commander")
   s.add_dependency("heroku")
+  s.add_dependency("git")
   s.add_development_dependency("rake")
 end
