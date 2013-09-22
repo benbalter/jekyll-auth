@@ -41,7 +41,7 @@ command :setup do |c|
     git.add "config.ru"
     git.add "Rakefile"
 
-    if git.diff('HEAD').entries.length != 0
+    if git.diff('HEAD', 'config.ru').entries.length != 0 || git.diff('HEAD', 'Rakefile').entries.length != 0
       git.commit "[Jekyll Auth] Initial setup"
     end
 
