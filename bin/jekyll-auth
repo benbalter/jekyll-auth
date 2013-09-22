@@ -7,6 +7,11 @@ require 'rake'
 require 'jekyll-auth'
 require 'git'
 
+def changed?
+  git = Git.init
+  git.diff('HEAD', 'config.ru').entries.length != 0 || git.diff('HEAD', 'Rakefile').entries.length != 0
+end
+
 program :version, JekyllAuth::VERSION
 program :description, 'A simple way to use Github Oauth to serve a protected jekyll site to your GitHub organization'
 
@@ -23,11 +28,16 @@ command :new do |c|
         say "* #{destination}/#{file} already exists... skipping."
       else
         say "* creating #{destination}/#{file}"
-        FileUtils.cp "#{source}/#{file}" "#{destination}/#{file}"
+        FileUtils.cp "#{source}/#{file}", "#{destination}/#{file}"
       end
     end
 
     command(:setup).run if agree "Would you like to set up Heroku now? (Y/n)"
+
+    if changed?
+      system "git status"
+      say "Looks like we've made some changes, you may want to do a git commit and git push sometime soon"
+    end
 
     say "Setup complete. Run jekyll-auth to view the authenticated site."
   end
@@ -41,7 +51,7 @@ command :setup do |c|
     git.add "config.ru"
     git.add "Rakefile"
 
-    if git.diff('HEAD', 'config.ru').entries.length != 0 || git.diff('HEAD', 'Rakefile').entries.length != 0
+    if changed?
       git.commit "[Jekyll Auth] Initial setup"
     end
 

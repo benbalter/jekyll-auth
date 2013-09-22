@@ -68,5 +68,6 @@ If they're in the org, they get the page. Otherwise, all they ever get is [the b
 
 1. `cd` to your project directory
 2. `rm config.ru`
+3. `rm Procfile`
 3. Follow [the instructions above](#adding-jekyll-auth-to-your-site) to get started
 4. When prompted, select "n" if Heroku is already set up
