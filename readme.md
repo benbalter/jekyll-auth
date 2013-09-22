@@ -2,6 +2,8 @@
 
 *A simple way to use Github OAuth to serve a protected jekyll site to your GitHub organization*
 
+[![Gem Version](https://badge.fury.io/rb/jekyll-auth.png)](http://badge.fury.io/rb/jekyll-auth)
+
 ## The problem
 
 [Jekyll](http://github.com/mojombo/jekyll) and [GitHub Pages](http://pages.github.com) are awesome, right? Static site, lighting fast, everything versioned in Git. What else could you ask for?
