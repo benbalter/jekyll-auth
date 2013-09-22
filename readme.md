@@ -39,7 +39,7 @@ gem 'jekyll-auth'
 
 Next, `cd` into your project's directory and run `bundle install`.
 
-Finally, run "jekyll-auth new" which will run you through everything you need to set up your site with Jekyll Auth.
+Finally, run `jekyll-auth new` which will run you through everything you need to set up your site with Jekyll Auth.
 
 ## Running locally
 
@@ -71,5 +71,5 @@ If they're in the org, they get the page. Otherwise, all they ever get is [the b
 1. `cd` to your project directory
 2. `rm config.ru`
 3. `rm Procfile`
-3. Follow [the instructions above](#adding-jekyll-auth-to-your-site) to get started
+3. Follow [the instructions above](https://github.com/benbalter/jekyll-auth#add-jekyll-auth-to-your-site) to get started
 4. When prompted, select "n" if Heroku is already set up
