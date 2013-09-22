@@ -79,7 +79,7 @@ command :setup do |c|
     end
 
     say "We're all set. Time to deploy our code to Heroku"
-    git.push "heroku", "master", "--force"
+    system "git push heroku master --force"
 
     say "Let's check if it worked..."
     sh "heroku open"
