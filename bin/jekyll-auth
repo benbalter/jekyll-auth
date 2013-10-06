@@ -122,12 +122,15 @@ command :serve do |c|
   end
 end
 
+# Run the standard jekyll build command
+# Called by Rake task, to allow the gem
+# to add functionality here in the future
 command :build do |c|
   c.syntax = 'jekyll-auth build'
   c.description = "Build Jekyll site"
   c.action do |args, options|
     say "building the site..."
-    sh "bundle exec rake assets:precompile"
+    sh "bundle exec jekyll build"
     say "site built."
   end
 end
