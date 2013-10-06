@@ -56,7 +56,15 @@ Just run `jekyll serve` as you would normally
 3. `export GITHUB_ORG_ID=[org id]` or `export GITHUB_TEAM_ID=[team id]`
 4. `jekyll-auth serve`
 
-*note:* For sanity sake, and to avoid problems with your callback URL you may want to have two apps, one with a local oauth callback, and one for production if you're going to be testing auth locally.
+*Pro-top #1:* For sanity sake, and to avoid problems with your callback URL you may want to have two apps, one with a local oauth callback, and one for production if you're going to be testing auth locally.
+
+*Pro-tip #2*: Jekyll Auth supports [dotenv](https://github.com/bkeepers/dotenv) out of the box. You can create a `.env` file in the root of site and add your configuration variables there. It's ignored by `.gitignore` if you use `jekyll-auth new`, but be sure not to accidentally commit your `.env` file. Here's what your `.env` file might look like:
+
+```
+GITHUB_CLIENT_SECRET=abcdefghijklmnopqrstuvwxyz0123456789
+GITHUB_CLIENT_ID=qwertyuiop0001
+GITHUB_TEAM_ID=12345
+```
 
 ## Under the hood
 
@@ -71,5 +79,6 @@ If they're in the org, they get the page. Otherwise, all they ever get is [the b
 1. `cd` to your project directory
 2. `rm config.ru`
 3. `rm Procfile`
-3. Follow [the instructions above](https://github.com/benbalter/jekyll-auth#add-jekyll-auth-to-your-site) to get started
-4. When prompted, select "n" if Heroku is already set up
+4. Remove any Jekyll Auth specific requirements from your `Gemfile`
+5. Follow [the instructions above](https://github.com/benbalter/jekyll-auth#add-jekyll-auth-to-your-site) to get started
+6. When prompted, select "n" if Heroku is already set up
