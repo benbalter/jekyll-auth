@@ -23,7 +23,7 @@ command :new do |c|
     destination = Dir.pwd
     say "Initaiting new Jekyll Auth site in #{destination}"
 
-    ["Rakefile", "config.ru"].each do |file|
+    ["Rakefile", "config.ru", ".gitignore"].each do |file|
       if File.exist? "#{destination}/#{file}"
         say "* #{destination}/#{file} already exists... skipping."
       else

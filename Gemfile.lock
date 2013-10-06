@@ -3,6 +3,7 @@ PATH
   specs:
     jekyll-auth (0.1.0)
       commander
+      dotenv
       git
       github-pages
       heroku
@@ -20,6 +21,7 @@ GEM
     commander (4.1.5)
       highline (~> 1.6.11)
     directory_watcher (1.4.1)
+    dotenv (0.9.0)
     excon (0.25.3)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)

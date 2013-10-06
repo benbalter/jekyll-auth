@@ -2,9 +2,11 @@ require 'rubygems'
 require 'sinatra-index'
 require 'sinatra_auth_github'
 require 'rack'
+require 'dotenv'
 require File.dirname(__FILE__) + '/jekyll-auth/version'
 require File.dirname(__FILE__) + '/jekyll-auth/auth-site'
 require File.dirname(__FILE__) + '/jekyll-auth/jekyll-site'
+Dotenv.load
 
 class JekyllAuth
   def self.site

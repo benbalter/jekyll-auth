@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.license               = "MIT"
   s.files                 = ["lib/jekyll-auth.rb", "bin/jekyll-auth", "config.ru", "Rakefile",
                              "lib/jekyll-auth/auth-site.rb", "lib/jekyll-auth/jekyll-site.rb",
-                             "lib/jekyll-auth/version.rb"]
+                             "lib/jekyll-auth/version.rb", ".gitignore"]
   s.executables           = ["jekyll-auth"]
 
   s.add_dependency("github-pages")
@@ -21,5 +21,6 @@ Gem::Specification.new do |s|
   s.add_dependency("commander")
   s.add_dependency("heroku")
   s.add_dependency("git")
+  s.add_dependency("dotenv")
   s.add_development_dependency("rake")
 end
