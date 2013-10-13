@@ -81,7 +81,7 @@ command :setup do |c|
     sh "heroku config:set GITHUB_CLIENT_SECRET=#{client_secret}"
 
     team_id = ask "What's your GitHub Team ID? (you can skip this in favor of an org if you prefer) "
-    if team_id
+    if team_id.length > 0
       sh "heroku config:set GITHUB_TEAM_ID=#{team_id}"
     else
       org_id = ask "What's your GitHub Org ID? "
