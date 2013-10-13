@@ -3,7 +3,7 @@
 
 set -e
 
-bundle update
+script/bootstrap
 
 bundle exec gem build jekyll-auth.gemspec
 
