@@ -2,7 +2,7 @@
 
 *A simple way to use Github OAuth to serve a protected jekyll site to your GitHub organization*
 
-[![Gem Version](https://badge.fury.io/rb/jekyll-auth.png)](http://badge.fury.io/rb/jekyll-auth)
+[![Gem Version](https://badge.fury.io/rb/jekyll-auth.png)](http://badge.fury.io/rb/jekyll-auth) [![Build Status](https://travis-ci.org/benbalter/jekyll-auth.png?branch=master)](https://travis-ci.org/benbalter/jekyll-auth)
 
 ## The problem
 
