@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jekyll-auth (0.1.2)
+    jekyll-auth (0.1.3)
       commander
       dotenv
       git
