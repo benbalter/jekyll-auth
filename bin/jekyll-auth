@@ -101,6 +101,7 @@ end
 command :serve do |c|
   c.syntax = "jekyll-auth serve"
   c.description = "Run Jekyll Auth site locally"
+  c.option '--drafts', 'Includes drafts in build'
   c.action do |args, options|
 
     # Ensure environmental variables are set
@@ -113,7 +114,11 @@ command :serve do |c|
     end
 
     # build site
-    command(:build).run
+    if options.drafts
+      command(:build).run('--drafts')
+    else
+      command(:build).run
+    end
 
     say "Spinning up the server with authentication. Use CTRL-C to stop."
     say "To preview the site without authentication, use the `jekyll serve` command"
@@ -128,9 +133,10 @@ end
 command :build do |c|
   c.syntax = 'jekyll-auth build'
   c.description = "Build Jekyll site"
+  c.option '--drafts', 'Includes drafts in build'
   c.action do |args, options|
     say "building the site..."
-    sh "bundle exec jekyll build"
+    sh "bundle exec jekyll build#{options.drafts ? ' --drafts' : ''}"
     say "site built."
   end
 end
