@@ -1,12 +1,12 @@
 # Jekyll Auth
 
-*A simple way to use Github OAuth to serve a protected jekyll site to your GitHub organization*
+*A simple way to use GitHub OAuth to serve a protected jekyll site to your GitHub organization*
 
 [![Gem Version](https://badge.fury.io/rb/jekyll-auth.png)](http://badge.fury.io/rb/jekyll-auth) [![Build Status](https://travis-ci.org/benbalter/jekyll-auth.png?branch=master)](https://travis-ci.org/benbalter/jekyll-auth)
 
 ## The problem
 
-[Jekyll](http://github.com/mojombo/jekyll) and [GitHub Pages](http://pages.github.com) are awesome, right? Static site, lighting fast, everything versioned in Git. What else could you ask for?
+[Jekyll](http://github.com/mojombo/jekyll) and [GitHub Pages](http://pages.github.com) are awesome, right? Static site, lightning fast, everything versioned in Git. What else could you ask for?
 
 But what if you only want to share that site with a select number of people? Before, you were SOL. Now, simply host the site on a free, [Heroku](http://heroku.com) Dyno, and whenever someone tries to access it, it will oauth them against GitHub, and make sure they're a member of your Organization. Pretty cool, huh?
 
@@ -56,7 +56,7 @@ Just run `jekyll serve` as you would normally
 3. `export GITHUB_ORG_ID=[org id]` or `export GITHUB_TEAM_ID=[team id]`
 4. `jekyll-auth serve`
 
-*Pro-top #1:* For sanity sake, and to avoid problems with your callback URL you may want to have two apps, one with a local oauth callback, and one for production if you're going to be testing auth locally.
+*Pro-top #1:* For sanity sake, and to avoid problems with your callback URL, you may want to have two apps, one with a local oauth callback, and one for production if you're going to be testing auth locally.
 
 *Pro-tip #2*: Jekyll Auth supports [dotenv](https://github.com/bkeepers/dotenv) out of the box. You can create a `.env` file in the root of site and add your configuration variables there. It's ignored by `.gitignore` if you use `jekyll-auth new`, but be sure not to accidentally commit your `.env` file. Here's what your `.env` file might look like:
 
