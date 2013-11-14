@@ -12,6 +12,7 @@ class JekyllAuth
     register Sinatra::Auth::Github
 
     before do
+      pass if JekyllAuth.whitelist.match request.path_info
       if ENV['GITHUB_TEAM_ID']
         github_team_authenticate!(ENV['GITHUB_TEAM_ID'])
       elsif ENV['GITHUB_ORG_ID']
