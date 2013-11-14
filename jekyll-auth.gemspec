@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   s.add_dependency("sinatra-index")
   s.add_dependency("sinatra_auth_github")
   s.add_dependency("commander")
-  s.add_dependency("heroku")
   s.add_dependency("git")
   s.add_dependency("dotenv")
   s.add_dependency("rake")
