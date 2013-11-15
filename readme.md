@@ -41,6 +41,26 @@ Next, `cd` into your project's directory and run `bundle install`.
 
 Finally, run `jekyll-auth new` which will run you through everything you need to set up your site with Jekyll Auth.
 
+### Whitelisting
+
+Don't want to require authentication for every part of your site? Fine! Add a whitelist to your Jekyll's *_config.yml_* file:
+
+```yaml
+jekyll_auth:
+  whitelist:
+    - drafts?
+```
+
+`jekyll_auth.whitelist` takes an array of regular expressions as strings. The default auth behavior checks (and blocks) against root (`/`). Any path defined in the whitelist won't require authentication on your site.
+
+What if you want to go the other way, and unauthenticate the entire site _except_ for certain portions? You can define some regex magic for that:
+
+```yaml
+jekyll_auth:
+  whitelist:
+    - "^((?!draft).)*$"
+```
+
 ## Running locally
 
 Want to run it locally?
