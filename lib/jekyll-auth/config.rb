@@ -10,7 +10,8 @@ class JekyllAuth
   end
 
   def self.whitelist
-    return nil unless whitelist = JekyllAuth::config["auth_whitelist"]
+    jekyll_auth_key = JekyllAuth::config["jekyll_auth"]
+    return nil if !jekyll_auth_key or !(whitelist = jekyll_auth_key["whitelist"])
     Regexp.new(whitelist.join("|"))
   end
 end
