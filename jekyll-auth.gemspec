@@ -23,4 +23,6 @@ Gem::Specification.new do |s|
   s.add_dependency("git")
   s.add_dependency("dotenv")
   s.add_dependency("rake")
+
+  s.add_runtime_dependency('safe_yaml', "~> 0.9.0")
 end
