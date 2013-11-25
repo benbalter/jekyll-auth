@@ -1,3 +1,3 @@
-#!/bin/sh
+#! /bin/sh
 
 bundle exec jekyll-auth
