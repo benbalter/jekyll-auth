@@ -14,4 +14,8 @@ class JekyllAuth
     return nil if !jekyll_auth_key or !(whitelist = jekyll_auth_key["whitelist"])
     Regexp.new(whitelist.join("|"))
   end
+
+  def self.ssl?
+    !!JekyllAuth::config["ssl"]
+  end
 end

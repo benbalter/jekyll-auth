@@ -61,6 +61,15 @@ jekyll_auth:
     - "^((?!draft).)*$"
 ```
 
+## Requiring SSL
+
+If [you've got SSL set up](https://devcenter.heroku.com/articles/ssl-endpoint), simply add the following your your `_config.yml` file to ensure SSL is enforced.
+
+```yaml
+jekyll_auth:
+  ssl: true
+```
+
 ## Running locally
 
 Want to run it locally?
