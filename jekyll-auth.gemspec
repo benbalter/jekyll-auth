@@ -15,14 +15,14 @@ Gem::Specification.new do |s|
                              "lib/jekyll-auth/version.rb", "lib/jekyll-auth/config.rb", ".gitignore"]
   s.executables           = ["jekyll-auth"]
 
-  s.add_dependency("github-pages")
-  s.add_dependency("sinatra-index")
-  s.add_dependency("sinatra_auth_github")
-  s.add_dependency("commander")
-  s.add_dependency("heroku")
-  s.add_dependency("git")
-  s.add_dependency("dotenv")
-  s.add_dependency("rake")
+  s.add_dependency("github-pages", "~> 10.0")
+  s.add_dependency("sinatra-index", "~> 0.0.2")
+  s.add_dependency("sinatra_auth_github", "~> 1.0")
+  s.add_dependency("commander", "~> 4.1")
+  s.add_dependency("heroku", "~> 3.0")
+  s.add_dependency("git", "~> 1.2")
+  s.add_dependency("dotenv", "~> 0.9.0")
+  s.add_dependency("rake", "~> 10.1")
 
   s.add_runtime_dependency('safe_yaml', "~> 0.9.0")
 end
