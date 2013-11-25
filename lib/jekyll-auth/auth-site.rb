@@ -1,6 +1,12 @@
 class JekyllAuth
   class AuthSite < Sinatra::Base
 
+    # require ssl
+    configure :production do
+      require 'rack-ssl-enforcer'
+      use Rack::SslEnforcer if JekyllAuth.ssl?
+    end
+
     use Rack::Session::Cookie, {
       :http_only => true,
       :secret => ENV['SESSION_SECRET'] || SecureRandom.hex

@@ -9,6 +9,9 @@ exclude:
   - config.ru
   - Rakefile
   - readme.md
+  - vendor
+
 jekyll_auth:
   whitelist:
     - drafts?
+  ssl: true
