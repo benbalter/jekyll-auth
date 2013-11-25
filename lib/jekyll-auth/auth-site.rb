@@ -1,7 +1,10 @@
 class JekyllAuth
   class AuthSite < Sinatra::Base
 
-    use Rack::Session::Cookie, :secret => ENV['SESSION_SECRET'] || SecureRandom.hex
+    use Rack::Session::Cookie, {
+      :http_only => true,
+      :secret => ENV['SESSION_SECRET'] || SecureRandom.hex
+    }
 
     set :github_options, {
       :client_id     => ENV['GITHUB_CLIENT_ID'],
