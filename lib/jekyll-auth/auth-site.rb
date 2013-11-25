@@ -4,7 +4,7 @@ class JekyllAuth
     # require ssl
     configure :production do
       require 'rack-ssl-enforcer'
-      use Rack::SslEnforcer if JekyllAuthh.ssl?
+      use Rack::SslEnforcer if JekyllAuth.ssl?
     end
 
     use Rack::Session::Cookie, {
