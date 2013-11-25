@@ -16,6 +16,7 @@ class JekyllAuth
   end
 
   def self.ssl?
-    !!JekyllAuth::config["ssl"]
+    jekyll_auth_key = JekyllAuth::config["jekyll_auth"]
+    !!JekyllAuth::jekyll_auth_key["ssl"]
   end
 end
