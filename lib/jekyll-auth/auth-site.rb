@@ -32,5 +32,10 @@ class JekyllAuth
         halt 401
       end
     end
+
+    get '/logout' do
+      logout!
+      redirect '/'
+    end
   end
 end
