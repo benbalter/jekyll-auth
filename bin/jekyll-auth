@@ -21,7 +21,7 @@ command :new do |c|
   c.action do |args, options|
     source = File.expand_path( "../", File.dirname(__FILE__) )
     destination = Dir.pwd
-    say "Initaiting new Jekyll Auth site in #{destination}"
+    say "Initiating new Jekyll Auth site in #{destination}"
 
     ["Rakefile", "config.ru", ".gitignore"].each do |file|
       if File.exist? "#{destination}/#{file}"
