@@ -82,7 +82,7 @@ Just run `jekyll serve` as you would normally
 
 1. `export GITHUB_CLIENT_ID=[your github app client id]`
 2. `export GITHUB_CLIENT_SECRET=[your github app client secret]`
-3. `export GITHUB_ORG_ID=[org id]` or `export GITHUB_TEAM_ID=[team id]`
+3. `export GITHUB_ORG_ID=[org id]` or `export GITHUB_TEAM_ID=[team id]` or `export GITHUB_TEAMS_ID=1234,5678`
 4. `jekyll-auth serve`
 
 *Pro-tip #1:* For sanity sake, and to avoid problems with your callback URL, you may want to have two apps, one with a local oauth callback, and one for production if you're going to be testing auth locally.

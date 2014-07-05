@@ -22,7 +22,12 @@ class JekyllAuth
 
     before do
       pass if JekyllAuth.whitelist && JekyllAuth.whitelist.match(request.path_info)
-      if ENV['GITHUB_TEAM_ID']
+      if ENV['GITHUB_TEAMS_ID']
+        authenticate!
+        ENV['GITHUB_TEAMS_ID'].split(",").each do |team|
+          return if github_team_access?(team.strip)
+        end
+      elsif ENV['GITHUB_TEAM_ID']
         github_team_authenticate!(ENV['GITHUB_TEAM_ID'])
       elsif ENV['GITHUB_ORG_ID']
         github_organization_authenticate!(ENV['GITHUB_ORG_ID'])
