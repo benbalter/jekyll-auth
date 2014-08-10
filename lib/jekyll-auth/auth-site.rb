@@ -25,8 +25,9 @@ class JekyllAuth
       if ENV['GITHUB_TEAM_IDS']
         authenticate!
         ENV['GITHUB_TEAM_IDS'].split(",").each do |team|
-          return if github_team_access?(team.strip)
+          return pass if github_team_access?(team.strip)
         end
+        halt 401
       elsif ENV['GITHUB_TEAM_ID']
         github_team_authenticate!(ENV['GITHUB_TEAM_ID'])
       elsif ENV['GITHUB_ORG_ID']
