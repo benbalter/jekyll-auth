@@ -1,6 +1,14 @@
 class JekyllAuth
   def self.setup_config
-  	@config_file ||= YAML.safe_load_file(File.join(Dir.pwd, "_config.yml"))
+    @config_file ||= if File.file?(config_filename)
+                       YAML.safe_load_file(config_filename)
+                     else
+                       Hash.new
+                     end
+  end
+
+  def self.config_filename
+    File.join(Dir.pwd, "_config.yml")
   end
 
   def self.config
