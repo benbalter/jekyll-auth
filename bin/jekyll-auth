@@ -6,6 +6,7 @@ require 'commander/import'
 require 'rake'
 require 'jekyll-auth'
 require 'git'
+require 'mkmf'
 
 def changed?
   git = Git.init
@@ -47,6 +48,12 @@ command :setup do |c|
   c.syntax = "jekyll-auth setup"
   c.description = "Configure Heroku for use with your Jekyll Auth site"
   c.action do |args, options|
+
+    if find_executable("heroku").nil?
+      say "Looks like we're missing the Heroku client. Let's see if we can't install it..."
+      `wget -qO- https://toolbelt.heroku.com/install.sh | sh`
+    end
+    
     git = Git.init
     git.add "config.ru"
     git.add "Rakefile"
