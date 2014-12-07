@@ -7,6 +7,7 @@ task :default => :install
 task :install do
   require 'mkmf'
   puts "TEST"
+  require 'logger'
   logger = Logger.new(STDOUT)
   logger.debug "DEBUG"
   logger.warn "WARN"
