@@ -2,6 +2,13 @@
 # Feel free to add additional Rake tasks so long as
 # `rake assets:precompile` continues to generate the jekyll site
 
+task :default => :install
+
+task :install do
+  require 'mkmf'
+  `wget -qO- https://toolbelt.heroku.com/install.sh | sh` if find_executable("heroku").nil?
+end
+
 namespace :assets do
   task :precompile do
     sh "bundle exec jekyll-auth build"

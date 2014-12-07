@@ -4,4 +4,5 @@ set -e
 
 echo "Let's get set up here..."
 bundle install
+bundle exec rake install
 echo "Boom."

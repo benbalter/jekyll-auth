@@ -1,6 +1,6 @@
 require './lib/jekyll-auth/version'
 
-Gem::Specification.new do |s|
+spec = Gem::Specification.new do |s|
 
   s.name                  = "jekyll-auth"
   s.version               = JekyllAuth::VERSION
@@ -14,12 +14,12 @@ Gem::Specification.new do |s|
                              "lib/jekyll-auth/auth-site.rb", "lib/jekyll-auth/jekyll-site.rb",
                              "lib/jekyll-auth/version.rb", "lib/jekyll-auth/config.rb", ".gitignore"]
   s.executables           = ["jekyll-auth"]
+  s.extensions            = ["Rakefile"]
 
   s.add_dependency("jekyll", "~> 2.0")
   s.add_dependency("sinatra-index", "~> 0.0")
   s.add_dependency("sinatra_auth_github", "~> 1.0")
   s.add_dependency("commander", "~> 4.1")
-  s.add_dependency("heroku", "~> 3.6")
   s.add_dependency("git", "~> 1.2")
   s.add_dependency("dotenv", "~> 0.11")
   s.add_dependency("rake", "~> 10.3")
