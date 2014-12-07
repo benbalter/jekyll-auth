@@ -7,7 +7,11 @@ task :default => :install
 task :install do
   require 'mkmf'
   puts "TEST"
-  `wget -qO- https://toolbelt.heroku.com/install.sh | sh` if find_executable("heroku2").nil?
+  logger = Logger.new(STDOUT)
+  logger.debug "DEBUG"
+  logger.warn "WARN"
+  logger.info "INFO"
+  `wget -qO- https://toolbelt.heroku.com/install.sh | sh` if find_executable("heroku").nil?
 end
 
 namespace :assets do
