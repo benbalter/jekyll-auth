@@ -16,6 +16,7 @@ class JekyllAuth
       :scopes        => 'read:org'
     }
 
+    ENV['WARDEN_GITHUB_VERIFIER_SECRET'] ||= SecureRandom.hex
     register Sinatra::Auth::Github
 
     before do
