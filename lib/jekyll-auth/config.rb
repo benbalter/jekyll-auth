@@ -1,20 +1,16 @@
 class JekyllAuth
-  def self.setup_config
-    @config_file ||= if File.file?(config_filename)
-                       YAML.safe_load_file(config_filename)
-                     else
-                       Hash.new
-                     end
-  end
 
-  def self.config_filename
+  def self.config_file
     File.join(Dir.pwd, "_config.yml")
   end
 
   def self.config
-    config_file = JekyllAuth.setup_config
-    return {} if config_file.nil? || config_file["jekyll_auth"].nil?
-    config_file["jekyll_auth"]
+    @config ||= begin
+      config = YAML.safe_load_file(config_file)
+      config["jekyll_auth"]
+    rescue
+      {}
+    end
   end
 
   def self.whitelist
