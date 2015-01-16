@@ -13,8 +13,6 @@ class JekyllAuth
     }
 
     set :github_options, {
-      :client_id     => ENV['GITHUB_CLIENT_ID'],
-      :client_secret => ENV['GITHUB_CLIENT_SECRET'],
       :scopes        => 'read:org'
     }
 
