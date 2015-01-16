@@ -95,6 +95,8 @@ GITHUB_CLIENT_ID=qwertyuiop0001
 GITHUB_TEAM_ID=12345
 ```
 
+*Pro-tip #3*: If you need help finding a team's numeric ID, you can use the `jekyll-auth team_id` command. For example, to find the team ID for @jekyll/maintainers you'd run the command `jekyll-auth team_id --org jekyll --team maintainers`. You'll want to add a [personal access token](https://github.com/settings/tokens/new) to your `.env` file so that Jekyll-Auth can make the necessary API request, but the command will run you through the process if you dont.
+
 ## Under the hood
 
 Every time you push to Heroku, we take advantage of the fact that Heroku automatically runs the `rake assets:precompile` command (normally used for Rails sites) to build our Jekyll site and store it statically, just like GitHub pages would.
