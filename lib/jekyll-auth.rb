@@ -16,7 +16,7 @@ class JekyllAuth
       run JekyllAuth::JekyllSite
     end
   end
-  
+
   def self.config_file
     File.join(Dir.pwd, "_config.yml")
   end
@@ -24,7 +24,7 @@ class JekyllAuth
   def self.config
     @config ||= begin
       config = YAML.safe_load_file(config_file)
-      config["jekyll_auth"]
+      config["jekyll_auth"] || {}
     rescue
       {}
     end

@@ -10,10 +10,10 @@ Gem::Specification.new do |s|
   s.email                 = "ben@balter.com"
   s.homepage              = "https://github.com/benbalter/jekyll-auth"
   s.license               = "MIT"
-  s.files                 = ["lib/jekyll-auth.rb", "bin/jekyll-auth", "config.ru", "Rakefile",
-                             "lib/jekyll-auth/auth-site.rb", "lib/jekyll-auth/jekyll-site.rb",
-                             "lib/jekyll-auth/version.rb", ".gitignore"]
-  s.executables           = ["jekyll-auth"]
+  s.files                 = `git ls-files`.split("\n")
+  s.test_files            = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables           = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths         = ["lib"]
 
   s.add_dependency("jekyll", "~> 2.0")
   s.add_dependency("sinatra-index", "~> 0.0")
@@ -24,4 +24,6 @@ Gem::Specification.new do |s|
   s.add_dependency("rake", "~> 10.3")
   s.add_dependency("rack-ssl-enforcer", "~> 0.2")
   s.add_runtime_dependency('safe_yaml', "~> 1.0")
+  s.add_development_dependency "rspec"
+  s.add_development_dependency "rack-test"
 end
