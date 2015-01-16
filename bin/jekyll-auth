@@ -53,7 +53,7 @@ command :setup do |c|
       say "Looks like we're missing the Heroku client. Let's see if we can't install it..."
       `wget -qO- https://toolbelt.heroku.com/install.sh | sh`
     end
-    
+
     git = Git.init
     git.add "config.ru"
     git.add "Rakefile"
@@ -139,6 +139,32 @@ command :build do |c|
     say "building the site..."
     sh "bundle exec jekyll build"
     say "site built."
+  end
+end
+
+command :team_id do |c|
+  c.syntax = 'jekyll-auth team_id --org <ORG> --team <TEAM>'
+  c.description = "Retrieve a team's ID"
+  c.option '--org <ORG>', String, 'The GitHub Organization, e.g., "jekyll"'
+  c.option '--team <TEAM>', String, 'The team name, e.g., "maintainers"'
+
+  c.action do |args, options|
+    if ENV["GITHUB_TOKEN"].to_s.blank?
+      say "You'll need to go to https://github.com/settings/tokens/new and create a personal access token"
+      say "Once you've got the token, prefix the jekyll-auth command with GITHUB_TOKEN=[YOUR TOKEN]"
+      say "You can also add it to a `.env` file in this directory"
+      exit 1
+    end
+
+    client = Octokit::Client.new :access_token => ENV["GITHUB_TOKEN"]
+    client.auto_paginate = true
+    teams = client.organization_teams options.org
+    team = teams.find { |t| t[:slug] == options.team }
+    if team
+      say "The team ID for `@#{options.org}/#{options.team}` is `#{team[:id]}`"
+    else
+      say "Couldn't find the `@#{options.org}/#{options.team}` team."
+    end
   end
 end
 
