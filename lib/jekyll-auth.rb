@@ -4,10 +4,10 @@ require 'sinatra_auth_github'
 require 'rack'
 require 'dotenv'
 require 'safe_yaml'
-require File.dirname(__FILE__) + '/jekyll-auth/version'
-require File.dirname(__FILE__) + '/jekyll-auth/config'
-require File.dirname(__FILE__) + '/jekyll-auth/auth-site'
-require File.dirname(__FILE__) + '/jekyll-auth/jekyll-site'
+require_relative 'jekyll-auth/version'
+require_relative 'jekyll-auth/config'
+require_relative 'jekyll-auth/auth-site'
+require_relative 'jekyll-auth/jekyll-site'
 Dotenv.load
 
 class JekyllAuth
