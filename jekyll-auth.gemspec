@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.license               = "MIT"
   s.files                 = ["lib/jekyll-auth.rb", "bin/jekyll-auth", "config.ru", "Rakefile",
                              "lib/jekyll-auth/auth-site.rb", "lib/jekyll-auth/jekyll-site.rb",
-                             "lib/jekyll-auth/version.rb", "lib/jekyll-auth/config.rb", ".gitignore"]
+                             "lib/jekyll-auth/version.rb", ".gitignore"]
   s.executables           = ["jekyll-auth"]
 
   s.add_dependency("jekyll", "~> 2.0")
