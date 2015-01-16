@@ -61,6 +61,9 @@ jekyll_auth:
     - "^((?!draft).)*$"
 ```
 
+There is also a more [extensive article containing installation instructions for Jekyll-Auth](http://fabian-kostadinov.github.io/2014/11/13/installation-of-jekyll-auth/) and a second one on [how to find your GitHub team ID](http://fabian-kostadinov.github.io/2015/01/16/how-to-find-a-github-team-id/).
+
+
 ## Requiring SSL
 
 If [you've got SSL set up](https://devcenter.heroku.com/articles/ssl-endpoint), simply add the following your your `_config.yml` file to ensure SSL is enforced.
@@ -111,3 +114,4 @@ If they're in the org, they get the page. Otherwise, all they ever get is [the b
 4. Remove any Jekyll Auth specific requirements from your `Gemfile`
 5. Follow [the instructions above](https://github.com/benbalter/jekyll-auth#add-jekyll-auth-to-your-site) to get started
 6. When prompted, select "n" if Heroku is already set up
+
