@@ -61,6 +61,9 @@ jekyll_auth:
     - "^((?!draft).)*$"
 ```
 
+There is also a more [extensive article containing installation instructions for Jekyll-Auth](http://fabian-kostadinov.github.io/2014/11/13/installation-of-jekyll-auth/) and a second one on [how to find your GitHub team ID](http://fabian-kostadinov.github.io/2015/01/16/how-to-find-a-github-team-id/).
+
+
 ## Requiring SSL
 
 If [you've got SSL set up](https://devcenter.heroku.com/articles/ssl-endpoint), simply add the following your your `_config.yml` file to ensure SSL is enforced.
@@ -94,8 +97,6 @@ GITHUB_CLIENT_SECRET=abcdefghijklmnopqrstuvwxyz0123456789
 GITHUB_CLIENT_ID=qwertyuiop0001
 GITHUB_TEAM_ID=12345
 ```
-
-There is also a more [extensive article containing installation instructions for Jekyll-Auth](http://fabian-kostadinov.github.io/2014/11/13/installation-of-jekyll-auth/) and a second one on [how to find your GitHub team ID](http://fabian-kostadinov.github.io/2015/01/16/how-to-find-a-github-team-id/).
 
 ## Under the hood
 
