@@ -1,5 +1,3 @@
 _site
-*.gem
 .env
 /Gemfile.lock
-tmp

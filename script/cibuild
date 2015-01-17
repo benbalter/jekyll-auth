@@ -3,8 +3,6 @@
 
 set -e
 
-script/bootstrap
-
+bundle exec rake spec
 bundle exec gem build jekyll-auth.gemspec
-
 bundle exec jekyll-auth --version

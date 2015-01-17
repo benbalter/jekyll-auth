@@ -18,7 +18,10 @@ class JekyllAuth
     ENV['WARDEN_GITHUB_VERIFIER_SECRET'] ||= SecureRandom.hex
     register Sinatra::Auth::Github
 
+    use Rack::Logger
+
     def whitelisted?
+      return true if request.path_info == "/logout"
       JekyllAuth.whitelist && JekyllAuth.whitelist.match(request.path_info)
     end
 
@@ -34,6 +37,8 @@ class JekyllAuth
 
     before do
       pass if whitelisted?
+
+      logger.info "Authentication strategy: #{authentication_strategy}"
 
       case authentication_strategy
       when :team

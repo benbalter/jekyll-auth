@@ -1,2 +1,11 @@
 language: ruby
 script: "./script/cibuild"
+
+sudo: false
+cache: bundler
+
+env:
+  global:
+    - GITHUB_CLIENT_ID=FOO
+    - GITHUB_CLIENT_SECRET=BAR
+    - GITHUB_ORG_ID="balter-test-org"

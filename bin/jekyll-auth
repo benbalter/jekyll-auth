@@ -20,7 +20,7 @@ command :new do |c|
   c.syntax = 'jekyll-auth new'
   c.description = "Initialize an existing Jekyll site as a Jekyll Auth site"
   c.action do |args, options|
-    source = File.expand_path( "../", File.dirname(__FILE__) )
+    source = File.expand_path( "../templates", File.dirname(__FILE__) )
     destination = Dir.pwd
     say "Initiating new Jekyll Auth site in #{destination}"
 
