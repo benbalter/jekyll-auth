@@ -44,8 +44,4 @@ describe "JekyllAuth" do
     File.write(JekyllAuth.config_file, "jekyll_auth:\n  whitelist:\n   - drafts?\n")
     expect(JekyllAuth.whitelist).to eql(/drafts?/)
   end
-
-  it "should load .env" do
-    expect(ENV["GITHUB_ORG_ID"]).to eql("balter-test-org")
-  end
 end
