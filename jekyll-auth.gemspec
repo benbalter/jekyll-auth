@@ -18,6 +18,8 @@ Gem::Specification.new do |s|
   s.add_dependency("jekyll", "~> 2.0")
   s.add_dependency("sinatra-index", "~> 0.0")
   s.add_dependency("sinatra_auth_github", "~> 1.1")
+  s.add_dependency "rack", "1.5.2"
+
   s.add_dependency("commander", "~> 4.1")
   s.add_dependency("git", "~> 1.2")
   s.add_dependency("dotenv", "~> 1.0")
@@ -26,4 +28,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('safe_yaml', "~> 1.0")
   s.add_development_dependency "rspec"
   s.add_development_dependency "rack-test"
+  s.add_development_dependency "webmock"
+
 end

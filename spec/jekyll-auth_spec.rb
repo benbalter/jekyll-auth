@@ -8,7 +8,7 @@ describe "JekyllAuth" do
   end
 
   it "should know the config file path" do
-    expected = File.expand_path "../tmp/_config.yml", File.dirname(__FILE__)
+    expected = File.expand_path "tmp/_config.yml", base_dir
     expect(JekyllAuth.config_file).to eql(expected)
   end
 
@@ -43,5 +43,9 @@ describe "JekyllAuth" do
   it "should parse the whitelist" do
     File.write(JekyllAuth.config_file, "jekyll_auth:\n  whitelist:\n   - drafts?\n")
     expect(JekyllAuth.whitelist).to eql(/drafts?/)
+  end
+
+  it "should load .env" do
+    expect(ENV["GITHUB_ORG_ID"]).to eql("balter-test-org")
   end
 end
