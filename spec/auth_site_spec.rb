@@ -12,7 +12,7 @@ describe "logged in user" do
     @user = make_user('login' => 'benbaltertest')
     login_as @user
 
-    stub_request(:get, "https://api.github.com/orgs/balter-test-org/members/benbaltertest").
+    stub_request(:get, "https://api.github.com/orgs/#{ENV["GITHUB_ORG_ID"]}/members/benbaltertest").
     to_return(:status => 200)
   end
 
