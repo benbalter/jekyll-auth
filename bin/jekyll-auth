@@ -21,7 +21,7 @@ def execute_command(*args)
   output
 end
 
-Mercenary.program(:"jekyll-auth") do |p|
+Mercenary.program("jekyll-auth") do |p|
   p.version     JekyllAuth::VERSION
   p.description "A simple way to use Github OAuth to serve a protected jekyll site to your GitHub organization"
   p.syntax      'jekyll-auth <subcommand> options'
