@@ -12,7 +12,7 @@ class JekyllAuth
     end
 
     def self.changed?
-      execute_command("git", "status", "--porcelain").length != 0
+      execute_command("git", "status", destination, "--porcelain").length != 0
     rescue
       false
     end
