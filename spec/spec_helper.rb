@@ -30,6 +30,13 @@ def setup_tmp_dir
   Dir.chdir tmp_dir
 end
 
+def with_env(key, value)
+  old_env = ENV[key]
+  ENV[key] = value
+  yield
+  ENV[key] = old_env
+end
+
 Dotenv.load
 setup_tmp_dir
 

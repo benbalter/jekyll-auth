@@ -20,20 +20,7 @@ class JekyllAuth
 
     use Rack::Logger
 
-    def whitelisted?
-      return true if request.path_info == "/logout"
-      JekyllAuth.whitelist && JekyllAuth.whitelist.match(request.path_info)
-    end
-
-    def authentication_strategy
-      if ENV['GITHUB_TEAM_ID']
-        :team
-      elsif ENV['GITHUB_TEAMS_ID']
-        :teams
-      elsif ENV['GITHUB_ORG_ID']
-        :org
-      end
-    end
+    include JekyllAuth::Helpers
 
     before do
       pass if whitelisted?
@@ -48,9 +35,7 @@ class JekyllAuth
       when :org
         github_organization_authenticate! ENV['GITHUB_ORG_ID']
       else
-        puts "ERROR: Jekyll Auth is refusing to serve your site."
-        puts "Looks like your oauth credentials are not properly configured. RTFM."
-        halt 401
+        raise JekyllAuth::ConfigError
       end
     end
 

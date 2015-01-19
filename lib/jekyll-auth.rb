@@ -5,8 +5,11 @@ require 'rack'
 require 'dotenv'
 require 'safe_yaml'
 require_relative 'jekyll-auth/version'
+require_relative 'jekyll-auth/helpers'
 require_relative 'jekyll-auth/auth-site'
 require_relative 'jekyll-auth/jekyll-site'
+require_relative 'jekyll-auth/config_error'
+
 Dotenv.load
 
 class JekyllAuth

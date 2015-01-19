@@ -60,4 +60,13 @@ describe "logged out user" do
     expect(last_response.status).to eql(302)
     expect(last_response.headers['Location']).to match(%r{^https://github\.com/login/oauth/authorize})
   end
+
+  it "refuses to serve the site without an authentication strategy" do
+    ENV["GITHUB_ORG_ID"] = nil
+    ENV["GITHUB_TEAM_ID"] = nil
+    ENV["GITHUB_TEAMS_ID"] = nil
+    get "/"
+    expect(last_response.body).to match(%r{JekyllAuth::ConfigError})
+    expect(last_response.status).to eql(500)
+  end
 end
