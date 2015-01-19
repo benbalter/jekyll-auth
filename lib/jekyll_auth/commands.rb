@@ -61,7 +61,7 @@ class JekyllAuth
       !!(remotes =~ /^heroku\s/)
     end
 
-    def configure_heroku(options)
+    def self.configure_heroku(options)
       VARS.each do |var|
         execute_command "heroku", "config:set", "GITHUB_#{var.upcase}=#{options[var]}" if options[var]
       end
