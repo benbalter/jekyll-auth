@@ -65,8 +65,6 @@ describe "logged out user" do
     ENV["GITHUB_ORG_ID"] = nil
     ENV["GITHUB_TEAM_ID"] = nil
     ENV["GITHUB_TEAMS_ID"] = nil
-    get "/"
-    expect(last_response.body).to match(%r{JekyllAuth::ConfigError})
-    expect(last_response.status).to eql(500)
+    expect{get "/"}.to raise_error(JekyllAuth::ConfigError)
   end
 end

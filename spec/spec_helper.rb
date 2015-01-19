@@ -1,6 +1,7 @@
 require "bundler/setup"
 require 'fileutils'
 
+ENV['RACK_ENV'] = 'test'
 $:.push File.join(File.dirname(__FILE__), '..', 'lib')
 
 require 'rack/test'
