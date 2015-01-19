@@ -34,6 +34,7 @@ describe "bin" do
     expect(File).to exist("#{tmp_dir}/config.ru")
     expect(File).to exist("#{tmp_dir}/Rakefile")
     expect(File).to exist("#{tmp_dir}/.gitignore")
+    expect(File).to exist("#{tmp_dir}/.env")
   end
 
   it "builds the site" do

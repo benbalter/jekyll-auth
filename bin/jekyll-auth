@@ -5,6 +5,7 @@ require 'mercenary'
 require 'git'
 require 'jekyll-auth'
 require 'colorator'
+require 'mkmf'
 
 def changed?
   git = Git.init
@@ -24,7 +25,7 @@ Mercenary.program(:"jekyll-auth") do |p|
       destination = Dir.pwd
       puts "Initiating new Jekyll Auth site in #{destination}"
 
-      ["Rakefile", "config.ru", ".gitignore"].each do |file|
+      ["Rakefile", "config.ru", ".gitignore", ".env"].each do |file|
         if File.exist? "#{destination}/#{file}"
           puts "* #{destination}/#{file} already exists... skipping."
         else
@@ -114,5 +115,58 @@ Mercenary.program(:"jekyll-auth") do |p|
     end
   end
 
+  p.command(:setup) do |c|
+    c.syntax "setup"
+    c.description "Configure Heroku for use with your Jekyll Auth site"
+    c.option "app", "--app", "The name of an existing Heroku app to use"
+    c.option "client_id", "--client_id", "Your oauth app client id"
+    c.option "client_secret", "--client_secret", "Your oauth app client secret"
+    c.option "team_id", "--team_id", "The team to authenticate against"
+    c.option "org_id", "--org_id", "An organization to authenticate against"
+    c.action do |args, options|
+
+      if find_executable("heroku").nil?
+        say "Looks like we're missing the Heroku client. Let's see if we can't install it..."
+        system "wget -qO- https://toolbelt.heroku.com/install.sh | sh"
+      end
+
+      git = Git.init
+      git.add ".gitignore"
+      git.add "config.ru"
+      git.add "Rakefile"
+
+      if changed?
+        git.commit "[Jekyll Auth] Initial setup"
+      end
+
+      if git.remotes.any? { |remote| remote.name == "heroku" }
+        puts "Looks like you've already got heroku set up... skipping.".green
+      else
+        if options["app"]
+          puts "Creating a new Heroku app."
+          system "heroku create"
+        else
+          puts "Telling Heroku to use your existing app."
+          system "heroku git:remote -a #{options["app"]}"
+        end
+      end
+
+      puts "Configuring the Heroku app"
+      system "heroku config:set GITHUB_CLIENT_ID=#{options["client_id"]} GITHUB_CLIENT_SECRET=#{options["client_secret"]}"
+
+      if options["team_id"]
+        system "heroku config:set GITHUB_TEAM_ID=#{options["team_id"]}"
+      else
+        system "heroku config:set GITHUB_ORG_ID=#{options["org_id"]}"
+      end
+
+      puts "Pushing to Heroku"
+      system "git push heroku master --force"
+
+      puts "Lets check if it worked"
+      system "heroku open"
+    end
+  end
+  
   p.default_command(:serve)
 end
