@@ -11,6 +11,8 @@ require 'open3'
 def changed?
   git = Git.init
   git.diff('HEAD', 'config.ru').entries.length != 0 || git.diff('HEAD', 'Rakefile').entries.length != 0
+rescue
+  false
 end
 
 def execute_command(*args)
