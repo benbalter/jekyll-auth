@@ -41,4 +41,20 @@ describe "commands" do
     `touch config.ru`
     expect(JekyllAuth::Commands.changed?).to eql(true)
   end
+
+  it "knows when env vars are set" do
+    var = "SOME_ENV_VAR"
+
+    ENV.delete(var)
+    expect(JekyllAuth::Commands.env_var_set?(var)).to eql(false)
+
+    ENV[var] = "bar"
+    expect(JekyllAuth::Commands.env_var_set?(var)).to eql(true)
+
+    ENV[var] = ""
+    expect(JekyllAuth::Commands.env_var_set?(var)).to eql(false)
+
+    ENV[var] = nil
+    expect(JekyllAuth::Commands.env_var_set?(var)).to eql(false)
+  end
 end

@@ -41,5 +41,9 @@ class JekyllAuth
       found = teams.find { |t| t[:slug] == team }
       found[:id] if found
     end
+
+    def self.env_var_set?(var)
+      !(ENV[var].to_s.blank?)
+    end
   end
 end

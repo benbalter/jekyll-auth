@@ -44,7 +44,7 @@ Mercenary.program("jekyll-auth") do |p|
 
     c.action do |args, options|
 
-      if ENV["GITHUB_TOKEN"].to_s.blank?
+      if !JekyllAuth::Commands.env_var_set? "GITHUB_TOKEN"
         puts "You'll need to go to https://github.com/settings/tokens/new and create a personal access token".red
         puts "Once you've got the token, prefix the jekyll-auth command with GITHUB_TOKEN=[YOUR TOKEN]".red
         puts "You can also add it to a `.env` file in this directory".red
@@ -76,8 +76,7 @@ Mercenary.program("jekyll-auth") do |p|
     c.action do |args, options|
 
       # Ensure environmental variables are set
-      ["GITHUB_CLIENT_ID", "GITHUB_CLIENT_SECRET"].each do |var|
-        next unless ENV[var].nil?
+      unless ["GITHUB_CLIENT_ID", "GITHUB_CLIENT_SECRET"].all? { |v| JekyllAuth::Commands.env_var_set?(v) }
         puts "Whoops. Looks like you forgot to tell Jekyll Auth about your app".red
         puts "Be sure to run export GITHUB_CLIENT_ID=[client id], export GITHUB_CLIENT_SECRET=[client secret], and export GITHUB_ORG_ID=[org id] (or GITHUB_TEAM_ID)".red
         puts "See the readme for more information on where to find these".red
