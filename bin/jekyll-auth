@@ -3,6 +3,7 @@
 
 require 'mercenary'
 require 'jekyll-auth'
+require 'open3'
 
 Mercenary.program("jekyll-auth") do |p|
   p.version     JekyllAuth::VERSION
@@ -108,7 +109,7 @@ Mercenary.program("jekyll-auth") do |p|
       end
 
       JekyllAuth::Commands.init_repo
-      JekyllAuth::Commands.inital_commit if JekyllAuth::Commands.changed?
+      JekyllAuth::Commands.initial_commit if JekyllAuth::Commands.changed?
 
       if JekyllAuth::Commands.heroku_remote_set?
         puts "Looks like you've already got heroku set up... skipping.".green

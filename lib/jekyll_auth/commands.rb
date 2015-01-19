@@ -49,7 +49,10 @@ class JekyllAuth
 
     def self.init_repo
       execute_command "git", "init", destination
-      FILES.each { |f| execute_command("git", "add", "--", "#{destination}/#{file}")}
+      FILES.each do |file|
+        next if file == ".env"
+        execute_command("git", "add", "--", "#{destination}/#{file}")
+      end
     end
 
     def self.initial_commit
