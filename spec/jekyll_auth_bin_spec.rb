@@ -8,7 +8,7 @@ describe "bin" do
   it "spits out the help do" do
     env = { "GITHUB_TOKEN" => nil}
     output = execute_bin(env, "--help")
-    expect(output).to match(%r{A simple way to use Github Oauth to serve a protected jekyll site to your GitHub organization})
+    expect(output).to match(%r{A simple way to use Github OAuth to serve a protected jekyll site to your GitHub organization})
   end
 
   describe "team id" do
@@ -34,5 +34,11 @@ describe "bin" do
     expect(File).to exist("#{tmp_dir}/config.ru")
     expect(File).to exist("#{tmp_dir}/Rakefile")
     expect(File).to exist("#{tmp_dir}/.gitignore")
+    expect(File).to exist("#{tmp_dir}/.env")
+  end
+
+  it "builds the site" do
+    execute_bin({}, "build")
+    expect(File).to exist("#{tmp_dir}/_site/index.html")
   end
 end
