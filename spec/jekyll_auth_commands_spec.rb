@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe "commands" do
 
-  before(:each) do
+  before do
     setup_tmp_dir
   end
 
@@ -56,5 +56,21 @@ describe "commands" do
 
     ENV[var] = nil
     expect(JekyllAuth::Commands.env_var_set?(var)).to eql(false)
+  end
+
+  it "knows when there's a heroku remote" do
+    `git init`
+    expect(JekyllAuth::Commands.heroku_remote_set?).to eql(false)
+    `git remote add heroku https://example.com`
+    expect(JekyllAuth::Commands.heroku_remote_set?).to eql(true)
+  end
+
+  it "should make an initial commit" do
+    `git init`
+    `touch foo.md`
+    `git add foo.md`
+    JekyllAuth::Commands.initial_commit
+    output = JekyllAuth::Commands.execute_command "git", "log"
+    expect(output).to match(/\[Jekyll Auth\] Initial setup/)
   end
 end
