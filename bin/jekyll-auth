@@ -6,10 +6,17 @@ require 'git'
 require 'jekyll-auth'
 require 'colorator'
 require 'mkmf'
+require 'open3'
 
 def changed?
   git = Git.init
   git.diff('HEAD', 'config.ru').entries.length != 0 || git.diff('HEAD', 'Rakefile').entries.length != 0
+end
+
+def execute_command(*args)
+  output, status = Open3.capture2e(*args)
+  raise "Command `#{args.join(" ")}` failed: #{output}" if status != 0
+  output
 end
 
 Mercenary.program(:"jekyll-auth") do |p|
@@ -35,7 +42,7 @@ Mercenary.program(:"jekyll-auth") do |p|
       end
 
       if changed?
-        system "git status"
+        execute_command "git", "status"
         puts "Looks like we've made some changes, you may want to do a git commit and git push sometime soon"
       end
 
@@ -50,7 +57,7 @@ Mercenary.program(:"jekyll-auth") do |p|
     c.syntax 'build'
     c.description "Build the Jekyll site"
     c.action do |args, options|
-      system "bundle exec jekyll build"
+      execute_command "bundle", "exec", "jekyll", "build"
     end
   end
 
@@ -110,7 +117,7 @@ Mercenary.program(:"jekyll-auth") do |p|
 
       puts "Spinning up the server with authentication. Use CTRL-C to stop."
       puts "To preview the site without authentication, use the `jekyll serve` command"
-      system "bundle exec rackup -p 4000"
+      execute_command "bundle", "exec", "rackup", "-p", "4000"
 
     end
   end
@@ -127,7 +134,7 @@ Mercenary.program(:"jekyll-auth") do |p|
 
       if find_executable("heroku").nil?
         say "Looks like we're missing the Heroku client. Let's see if we can't install it..."
-        system "wget -qO- https://toolbelt.heroku.com/install.sh | sh"
+        execute_command "wget", "-qO-", "https://toolbelt.heroku.com/install.sh", "|", "sh"
       end
 
       git = Git.init
@@ -144,29 +151,29 @@ Mercenary.program(:"jekyll-auth") do |p|
       else
         if options["app"]
           puts "Creating a new Heroku app."
-          system "heroku create"
+          execute_command "heroku", "create"
         else
           puts "Telling Heroku to use your existing app."
-          system "heroku git:remote -a #{options["app"]}"
+          execute_command "heroku", "git:remote", "-a", options["app"]
         end
       end
 
       puts "Configuring the Heroku app"
-      system "heroku config:set GITHUB_CLIENT_ID=#{options["client_id"]} GITHUB_CLIENT_SECRET=#{options["client_secret"]}"
+      execute_command "heroku", "config:set", "GITHUB_CLIENT_ID=#{options["client_id"]}", "GITHUB_CLIENT_SECRET=#{options["client_secret"]}"
 
       if options["team_id"]
-        system "heroku config:set GITHUB_TEAM_ID=#{options["team_id"]}"
+        execute_command "heroku", "config:set", "GITHUB_TEAM_ID=#{options["team_id"]}"
       else
-        system "heroku config:set GITHUB_ORG_ID=#{options["org_id"]}"
+        execute_command "heroku", "config:set", "GITHUB_ORG_ID=#{options["org_id"]}"
       end
 
       puts "Pushing to Heroku"
-      system "git push heroku master --force"
+      execute_command "git", "push", "heroku", "master", "--force"
 
       puts "Lets check if it worked"
-      system "heroku open"
+      execute_command "heroku", "open"
     end
   end
-  
+
   p.default_command(:serve)
 end
