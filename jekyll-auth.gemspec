@@ -1,7 +1,6 @@
 require './lib/jekyll_auth/version'
 
 Gem::Specification.new do |s|
-
   s.name                  = "jekyll-auth"
   s.version               = JekyllAuth::VERSION
   s.summary               = "A simple way to use Github OAuth to serve a protected jekyll site to your GitHub organization"
@@ -19,16 +18,15 @@ Gem::Specification.new do |s|
   s.add_dependency "sinatra-index", "~> 0.0"
   s.add_dependency "sinatra_auth_github", "~> 1.1"
   s.add_dependency "rack", "1.5.2"
-
-  s.add_dependency "commander", "~> 4.1"
   s.add_dependency "git", "~> 1.2"
   s.add_dependency "dotenv", "~> 1.0"
   s.add_dependency "rake", "~> 10.3"
   s.add_dependency "rack-ssl-enforcer", "~> 0.2"
-  s.add_runtime_dependency 'safe_yaml', "~> 1.0"
+  s.add_dependency "mercenary", "~> 0.3"
+  s.add_dependency 'safe_yaml', "~> 1.0"
+  s.add_dependency "colorator", "~> 0.1"
   s.add_development_dependency "rspec", "~> 3.1"
   s.add_development_dependency "rack-test", "~> 0.6"
   s.add_development_dependency "webmock", "~> 1.2 "
   s.add_development_dependency "pry", "~> 0.10"
-
 end
