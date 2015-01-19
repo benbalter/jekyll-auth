@@ -2,24 +2,7 @@
 # Command-line interface for jekyll-auth
 
 require 'mercenary'
-require 'git'
 require 'jekyll-auth'
-require 'colorator'
-require 'mkmf'
-require 'open3'
-
-def changed?
-  git = Git.init
-  git.diff('HEAD', 'config.ru').entries.length != 0 || git.diff('HEAD', 'Rakefile').entries.length != 0
-rescue
-  false
-end
-
-def execute_command(*args)
-  output, status = Open3.capture2e(*args)
-  raise "Command `#{args.join(" ")}` failed: #{output}" if status != 0
-  output
-end
 
 Mercenary.program("jekyll-auth") do |p|
   p.version     JekyllAuth::VERSION
@@ -30,25 +13,14 @@ Mercenary.program("jekyll-auth") do |p|
     c.syntax 'new'
     c.description "Initialize an existing Jekyll site as a Jekyll Auth site"
     c.action do |args, options|
-      source = File.expand_path( "../templates", File.dirname(__FILE__) )
-      destination = Dir.pwd
-      puts "Initiating new Jekyll Auth site in #{destination}"
 
-      %w{Rakefile config.ru .gitignore .env}.each do |file|
-        if File.exist? "#{destination}/#{file}"
-          puts "* #{destination}/#{file} already exists... skipping."
-        else
-          puts "* creating #{destination}/#{file}"
-          FileUtils.cp "#{source}/#{file}", "#{destination}/#{file}"
-        end
+      JekyllAuth::Commands.copy_templates
+
+      if JekyllAuth::Commands.changed?
+        puts "Looks like we've made some changes, you may want to do a git commit and git push sometime soon".yellow
       end
 
-      if changed?
-        execute_command "git", "status"
-        puts "Looks like we've made some changes, you may want to do a git commit and git push sometime soon"
-      end
-
-      puts "Setup complete. Run jekyll-auth to view the authenticated site."
+      puts "Setup complete. Run `jekyll-auth` to view the authenticated site."
     end
   end
 
@@ -88,13 +60,10 @@ Mercenary.program("jekyll-auth") do |p|
         exit 1
       end
 
-      client = Octokit::Client.new :access_token => ENV["GITHUB_TOKEN"]
-      client.auto_paginate = true
-      teams = client.organization_teams org
-      found = teams.find { |t| t[:slug] == team }
+      team_id = JekyllAuth::Comands.team_id(org, team)
 
       if found
-        puts "The team ID for `@#{org}/#{team}` is `#{found[:id]}`".green
+        puts "The team ID for `@#{org}/#{team}` is `#{team_id}`".green
       else
         puts "Couldn't find the `@#{org}/#{team}` team.".red
       end
