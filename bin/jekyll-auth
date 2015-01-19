@@ -59,7 +59,8 @@ Mercenary.program("jekyll-auth") do |p|
     c.syntax 'build'
     c.description "Build the Jekyll site"
     c.action do |args, options|
-      execute_command "bundle", "exec", "jekyll", "build"
+      require 'jekyll'
+      Jekyll::Commands::Build.process(options)
     end
   end
 
