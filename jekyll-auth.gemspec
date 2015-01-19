@@ -1,4 +1,4 @@
-require './lib/jekyll-auth/version'
+require './lib/jekyll_auth/version'
 
 Gem::Specification.new do |s|
 

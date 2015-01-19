@@ -12,6 +12,8 @@ describe "logged in user" do
     @user = make_user('login' => 'benbaltertest')
     login_as @user
 
+    ENV['GITHUB_ORG_ID'] = "balter-test-org"
+    
     stub_request(:get, "https://api.github.com/orgs/#{ENV["GITHUB_ORG_ID"]}/members/benbaltertest").
     to_return(:status => 200)
   end
@@ -39,6 +41,10 @@ describe "logged out user" do
 
   def app
     JekyllAuth.site
+  end
+
+  before do
+    ENV['GITHUB_ORG_ID'] = "balter-test-org"
   end
 
   it "doesn't let you view indexes" do

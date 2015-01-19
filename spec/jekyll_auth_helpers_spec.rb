@@ -12,7 +12,8 @@ describe "strategies" do
     end
   end
 
-  before do
+  before(:each) do
+    JekyllAuth.instance_variable_set("@config", nil)
     @helper = TestHelper.new
     ENV["GITHUB_ORG_ID"] = nil
     ENV["GITHUB_TEAM_ID"] = nil

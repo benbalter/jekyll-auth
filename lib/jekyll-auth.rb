@@ -4,11 +4,11 @@ require 'sinatra_auth_github'
 require 'rack'
 require 'dotenv'
 require 'safe_yaml'
-require_relative 'jekyll-auth/version'
-require_relative 'jekyll-auth/helpers'
-require_relative 'jekyll-auth/auth-site'
-require_relative 'jekyll-auth/jekyll-site'
-require_relative 'jekyll-auth/config_error'
+require_relative 'jekyll_auth/version'
+require_relative 'jekyll_auth/helpers'
+require_relative 'jekyll_auth/auth_site'
+require_relative 'jekyll_auth/jekyll_site'
+require_relative 'jekyll_auth/config_error'
 
 Dotenv.load
 
