@@ -16,8 +16,8 @@ Gem::Specification.new do |s|
   s.require_paths         = ["lib"]
 
   s.add_dependency "jekyll", "~> 2.0"
-  s.add_dependency "sinatra-index", "~> 0.0")
-  s.add_dependency "sinatra_auth_github", "~> 1.1" 
+  s.add_dependency "sinatra-index", "~> 0.0"
+  s.add_dependency "sinatra_auth_github", "~> 1.1"
   s.add_dependency "rack", "1.5.2"
 
   s.add_dependency "commander", "~> 4.1"

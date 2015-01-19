@@ -9,6 +9,7 @@ require 'sinatra/auth/github'
 require 'sinatra/auth/github/test/test_helper'
 require 'webmock/rspec'
 require 'dotenv'
+require 'open3'
 
 def base_dir
   File.expand_path "../", File.dirname(__FILE__)
@@ -16,6 +17,10 @@ end
 
 def tmp_dir
   File.expand_path "tmp", base_dir
+end
+
+def bin_path
+  File.expand_path "./bin/jekyll-auth", base_dir
 end
 
 def tear_down_tmp_dir
@@ -38,10 +43,17 @@ def with_env(key, value)
   ENV[key] = old_env
 end
 
+def execute_bin(env, *args)
+  output, status = Open3.capture2e(env, bin_path, *args)
+  raise "Command `#{bin_path} #{args.join(" ")}` failed: #{output}" if status != 0
+  output
+end
+
 Dotenv.load
 setup_tmp_dir
 
 require_relative "../lib/jekyll-auth"
+WebMock.disable_net_connect!
 
 RSpec.configure do |config|
   config.include(Sinatra::Auth::Github::Test::Helper)

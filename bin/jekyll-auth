@@ -33,7 +33,9 @@ command :new do |c|
       end
     end
 
-    command(:setup).run if agree "Would you like to set up Heroku now? (Y/n)"
+    if ENV["RACK_ENV"] != "TEST" && agree("Would you like to set up Heroku now? (Y/n)")
+      command(:setup).run
+    end
 
     if changed?
       system "git status"
@@ -153,6 +155,12 @@ command :team_id do |c|
       say "You'll need to go to https://github.com/settings/tokens/new and create a personal access token"
       say "Once you've got the token, prefix the jekyll-auth command with GITHUB_TOKEN=[YOUR TOKEN]"
       say "You can also add it to a `.env` file in this directory"
+      exit 1
+    end
+
+    if options.org.nil? || options.team.nil?
+      say "An org name and team ID are required."
+      say "Usage: jekyll-auth team_id --org <ORG> --team <TEAM>"
       exit 1
     end
 

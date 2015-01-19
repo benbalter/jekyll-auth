@@ -1,3 +1,5 @@
+require "spec_helper"
+
 describe "strategies" do
 
   class TestHelper
