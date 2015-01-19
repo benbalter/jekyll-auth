@@ -34,7 +34,7 @@ Mercenary.program("jekyll-auth") do |p|
       destination = Dir.pwd
       puts "Initiating new Jekyll Auth site in #{destination}"
 
-      ["Rakefile", "config.ru", ".gitignore", ".env"].each do |file|
+      %w{Rakefile config.ru .gitignore .env}.each do |file|
         if File.exist? "#{destination}/#{file}"
           puts "* #{destination}/#{file} already exists... skipping."
         else
