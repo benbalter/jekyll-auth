@@ -1,6 +1,6 @@
 # Jekyll Auth
 
-*A simple way to use GitHub OAuth to serve a protected jekyll site to your GitHub organization*
+*A simple way to use GitHub OAuth to serve a protected Jekyll site to your GitHub organization*
 
 [![Gem Version](https://badge.fury.io/rb/jekyll-auth.png)](http://badge.fury.io/rb/jekyll-auth) [![Build Status](https://travis-ci.org/benbalter/jekyll-auth.png?branch=master)](https://travis-ci.org/benbalter/jekyll-auth)
 
@@ -8,14 +8,14 @@
 
 [Jekyll](http://github.com/mojombo/jekyll) and [GitHub Pages](http://pages.github.com) are awesome, right? Static site, lightning fast, everything versioned in Git. What else could you ask for?
 
-But what if you only want to share that site with a select number of people? Before, you were SOL. Now, simply host the site on a free, [Heroku](http://heroku.com) Dyno, and whenever someone tries to access it, it will oauth them against GitHub, and make sure they're a member of your Organization. Pretty cool, huh?
+But what if you only want to share that site with a select number of people? Before, you were SOL. Now, simply host the site on a free, [Heroku](http://heroku.com) Dyno, and whenever someone tries to access it, it will Oauth them against GitHub, and make sure they're a member of your Organization. Pretty cool, huh?
 
 ## Requirements
 
 1. A GitHub account (one per user)
 2. A GitHub Organization (of which members will have access to the Jekyll site)
 3. A GitHub Application (You can always [register one](https://github.com/settings/applications/new) for free)
-4. A heroku account
+4. A Heroku account
 
 ## Getting Started
 
@@ -116,4 +116,3 @@ If they're in the org, they get the page. Otherwise, all they ever get is [the b
 4. Remove any Jekyll Auth specific requirements from your `Gemfile`
 5. Follow [the instructions above](https://github.com/benbalter/jekyll-auth#add-jekyll-auth-to-your-site) to get started
 6. When prompted, select "n" if Heroku is already set up
-
