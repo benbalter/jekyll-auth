@@ -102,6 +102,10 @@ jekyll_auth:
   ssl: true
 ```
 
+### Using a custom 404
+
+Just like GitHub Pages, Jekyll Auth will honor a custom 404 page, if it's generated as `/404.html` in the built site.
+
 ## Running locally
 
 Want to run it locally?
