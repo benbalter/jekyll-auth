@@ -28,4 +28,17 @@ describe "jekyll site" do
     expect(last_response.body).to eql("My awesome directory")
   end
 
+  it "serves the default 404" do
+    get "/a-bad-path"
+    expect(last_response.status).to eql(404)
+    expect(last_response.body).to eql("<h1>Not Found</h1>")
+  end
+
+  it "serves a custom 404" do
+    File.write File.expand_path("_site/404.html", tmp_dir), "My custom 404"
+    get "/a-bad-path"
+    expect(last_response.status).to eql(404)
+    expect(last_response.body).to eql("My custom 404")
+  end
+
 end
