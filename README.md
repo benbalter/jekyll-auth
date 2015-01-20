@@ -44,7 +44,9 @@ But what if you only want to share that site with a select number of people? Bef
 
 #### Automatically
 
-Run `bundle exec jekyll-auth --client_id XXX --client_secret XXX --org_id XXX` (or `--team_id XXX`)
+Run `bundle exec jekyll-auth --client_id XXX --client_secret XXX --org_id XXX`
+
+(or `--team_id XXX`)
 
 #### Manually
 
@@ -57,7 +59,15 @@ Run `bundle exec jekyll-auth --client_id XXX --client_secret XXX --org_id XXX` (
 
 #### Finding the team ID
 
-If you need help finding a team's numeric ID, you can use the `jekyll-auth team_id` command. For example, to find the team ID for @jekyll/maintainers you'd run the command `jekyll-auth team_id --org jekyll --team maintainers`. You'll want to add a [personal access token](https://github.com/settings/tokens/new) to your `.env` file so that Jekyll-Auth can make the necessary API request, but the command will run you through the process if you dont.
+If you need help finding a team's numeric ID, you can use the `jekyll-auth team_id` command.
+
+For example, to find the team ID for @jekyll/maintainers you'd run the command:
+
+```
+jekyll-auth team_id --org jekyll --team maintainers
+```
+
+You'll want to add a [personal access token](https://github.com/settings/tokens/new) to your `.env` file so that Jekyll-Auth can make the necessary API request, but the command will run you through the process if you dont.
 
 ## Configuration
 
