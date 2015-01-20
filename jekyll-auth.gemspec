@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
   s.add_dependency "sinatra-index", "~> 0.0"
   s.add_dependency "sinatra_auth_github", "~> 1.1"
   s.add_dependency "rack", "1.5.2"
-  s.add_dependency "git", "~> 1.2"
   s.add_dependency "dotenv", "~> 1.0"
   s.add_dependency "rake", "~> 10.3"
   s.add_dependency "rack-ssl-enforcer", "~> 0.2"
