@@ -1,11 +1,6 @@
 class JekyllAuth
   class JekyllSite < Sinatra::Base
 
-
-    def four_oh_four
-      path if File.exists?(path)
-    end
-
     register Sinatra::Index
     set :public_folder, File.expand_path('_site', Dir.pwd)
     use_static_index 'index.html'
