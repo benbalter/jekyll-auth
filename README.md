@@ -30,7 +30,7 @@ But what if you only want to share that site with a select number of people? Bef
 
 1. Add `gem 'jekyll-auth'` to your `Gemfile` or if you don't already have a `Gemfile`, create a file called `Gemfile` in the root of your site's repository with the following content:
 
-  ```
+  ```ruby
   source "https://rubygems.org"
 
   gem 'jekyll-auth'
