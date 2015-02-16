@@ -4,6 +4,7 @@
 require 'mercenary'
 require 'jekyll-auth'
 require 'open3'
+require 'jekyll-auth'
 
 Mercenary.program("jekyll-auth") do |p|
   p.version     JekyllAuth::VERSION
@@ -89,7 +90,7 @@ Mercenary.program("jekyll-auth") do |p|
 
       puts "Spinning up the server with authentication. Use CTRL-C to stop."
       puts "To preview the site without authentication, use the `jekyll serve` command"
-      execute_command "bundle", "exec", "rackup", "-p", "4000"
+      JekyllAuth::Commands.execute_command "bundle", "exec", "rackup", "-p", "4000"
 
     end
   end
