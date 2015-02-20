@@ -4,7 +4,6 @@
 require 'mercenary'
 require 'jekyll-auth'
 require 'open3'
-require 'jekyll-auth'
 
 Mercenary.program("jekyll-auth") do |p|
   p.version     JekyllAuth::VERSION
@@ -62,9 +61,9 @@ Mercenary.program("jekyll-auth") do |p|
         exit 1
       end
 
-      team_id = JekyllAuth::Comands.team_id(org, team)
+      team_id = JekyllAuth::Commands.team_id(org, team)
 
-      if found
+      if team_id
         puts "The team ID for `@#{org}/#{team}` is `#{team_id}`".green
       else
         puts "Couldn't find the `@#{org}/#{team}` team.".red
