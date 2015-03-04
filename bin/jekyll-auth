@@ -33,6 +33,23 @@ Mercenary.program("jekyll-auth") do |p|
     c.description "Build the Jekyll site"
     c.action do |args, options|
       require 'jekyll'
+
+      yaml = """
+is_jekyll_auth: true
+git_sha: #{ENV['GIT_SHA']}
+"""
+      config_jekyll_auth = Tempfile.new('_config.jekyll-auth.yml')
+
+      config_jekyll_auth.write(yaml.strip)
+      config_jekyll_auth.rewind
+      config_jekyll_auth.close
+
+      if options['config'].nil?
+        options['config'] = ['_config.yml', config_jekyll_auth.path]
+      else
+        options['config'] = options['config'].push(config_jekyll_auth.path)
+      end
+
       Jekyll::Commands::Build.process(options)
     end
   end
