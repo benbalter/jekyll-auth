@@ -24,14 +24,14 @@ But what if you only want to share that site with a select number of people? Bef
 1. Navigate to [the GitHub app registration page](https://github.com/settings/applications/new)
 2. Give your app a name
 3. Tell GitHub the URL you want the app to eventually live at. If using a free Heroku account, this will be something like http://my-site.herokuapp.com
-4. Specify the callback URL; should be like this: http://my-site.herokuapp.com/auth/github/callback 
+4. Specify the callback URL; should be like this: https://my-site.herokuapp.com/auth/github/callback; note that this is **https**, not http.
 5. Hit Save, but leave the page open, you'll need some of the information in a moment
 
-Note, remember the 'my-site' part for later on when using `heroku create`
+Remember the 'my-site' part for later on when using `heroku create`. Also, my-site is often called 'app-name' in Heroku documenation.
 
 ### Add Jekyll Auth to your site
 
-1. Add `gem 'jekyll-auth'` to your `Gemfile` or if you don't already have a `Gemfile`, create a file called `Gemfile` in the root of your site's repository with the following content:
+1. Within your new site repository or orphaned github [branch](https://help.github.com/articles/creating-project-pages-manually/) (the branch could be named anything except 'gh-pages' since this would then be public on github!), add `gem 'jekyll-auth'` to your `Gemfile` or if you don't already have a `Gemfile`, create a file called `Gemfile` in the root of your site's repository with the following content:
 
   ```ruby
   source "https://rubygems.org"
@@ -39,7 +39,7 @@ Note, remember the 'my-site' part for later on when using `heroku create`
   gem 'jekyll-auth'
   ```
 
-2. `cd` into your project's directory and run `bundle install`. Note on some systems, if you get an error using `bundle install`, you may have better luck using `bundle install --deployment`, but be sure to add the resulting 'vendor' directory to .gitignore.
+2. `cd` into your project's directory and run `bundle install`. If you get an error using `bundle install`, see Troubleshooting below. 
 
 3. Run `bundle exec jekyll-auth new` which will copy the necessary files to set up the server
 
@@ -57,7 +57,7 @@ Run `bundle exec jekyll-auth --client_id XXX --client_secret XXX --org_id XXX`
 2. Make sure you have [the Heroku toolbelt](https://toolbelt.heroku.com/) installed
 3. Run `heroku create my-site` from your site's directory; make sure my-site matches what you specified in the Githup application registration above.
 4. `heroku config:set GITHUB_CLIENT_ID=XXX GITHUB_CLIENT_SECRET=XXX GITHUB_ORG_ID=XXX` (or `GITHUB_TEAM_ID`)
-5. `git push heroku`
+5. `git push heroku`, or if you are maintaining the site in an orphaned branch of your github repo (say 'heroku-pages'), do `git push heroku heroku-pages:master`
 6. `heroku open` to open the site in your browser
 
 #### Finding the team ID
@@ -150,3 +150,22 @@ If they're in the org, they get the page. Otherwise, all they ever get is [the b
 4. Remove any Jekyll Auth specific requirements from your `Gemfile`
 5. Follow [the instructions above](https://github.com/benbalter/jekyll-auth#add-jekyll-auth-to-your-site) to get started
 6. When prompted, select "n" if Heroku is already set up
+
+## Troubleshooting
+
+* **ERROR: YOUR SITE COULD NOT BE BUILT** during install, either locally or on Heroku. You likely need to add `exclude: [vendor]` to `_config.yml` in your branch's root directory (create the file if it does not exist already). If you still have problems on the *local* install, you may have better luck using `bundle install --deployment`, but be sure to add the resulting 'vendor' directory to .gitignore. For completeness, the full error may look something like this:
+
+```
+remote:        Configuration file: none
+remote:                     ERROR: YOUR SITE COULD NOT BE BUILT:
+remote:                            ------------------------------------
+remote:                            Invalid date '0000-00-00': Post '/vendor/bundle/ruby/2.0.0/gems/jekyll-2.5.3/lib/site_template/_posts/0000-00-00-welcome-to-jekyll.markdown.erb' does not have a valid date in the filename.
+```
+
+* **Pushing to heroku**. If you are working from a new github-cloned repo (where you have not run `heroku create`), you may also want to push to heroku. You do not add the remote in the standard way using git, but instead do this: 
+
+```
+heroku git:remote -a my-site 
+```
+
+
