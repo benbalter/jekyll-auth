@@ -47,7 +47,7 @@ Remember the 'my-site' part for later on when using `heroku create`. Also, my-si
 
 #### Automatically
 
-Run `bundle exec jekyll-auth --client_id XXX --client_secret XXX --org_id XXX`
+Run `bundle exec jekyll-auth setup --client_id XXX --client_secret XXX --org_id XXX`
 
 (or `--team_id XXX`)
 
