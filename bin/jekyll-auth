@@ -89,7 +89,7 @@ Mercenary.program("jekyll-auth") do |p|
 
       puts "Spinning up the server with authentication. Use CTRL-C to stop."
       puts "To preview the site without authentication, use the `jekyll serve` command"
-      JekyllAuth::Commands.execute_command "bundle", "exec", "rackup", "-p", "4000"
+      JekyllAuth::Commands.execute_command "bundle", "exec", "rackup", "--host", "0.0.0.0", "-p", "4000"
 
     end
   end
