@@ -33,7 +33,7 @@ class JekyllAuth
       when :teams
         github_teams_authenticate! ENV['GITHUB_TEAM_IDS'].split(",")
       when :org
-        github_organization_authenticate! ENV['GITHUB_ORG_ID']
+        github_organization_authenticate! ENV['GITHUB_ORG_NAME']
       else
         raise JekyllAuth::ConfigError
       end

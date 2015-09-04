@@ -12,9 +12,9 @@ describe "logged in user" do
     @user = make_user('login' => 'benbaltertest')
     login_as @user
 
-    ENV['GITHUB_ORG_ID'] = "balter-test-org"
+    ENV['GITHUB_ORG_NAME'] = "balter-test-org"
     
-    stub_request(:get, "https://api.github.com/orgs/#{ENV["GITHUB_ORG_ID"]}/members/benbaltertest").
+    stub_request(:get, "https://api.github.com/orgs/#{ENV["GITHUB_ORG_NAME"]}/members/benbaltertest").
     to_return(:status => 200)
   end
 
@@ -44,7 +44,7 @@ describe "logged out user" do
   end
 
   before do
-    ENV['GITHUB_ORG_ID'] = "balter-test-org"
+    ENV['GITHUB_ORG_NAME'] = "balter-test-org"
   end
 
   it "doesn't let you view indexes" do
@@ -68,7 +68,7 @@ describe "logged out user" do
   end
 
   it "refuses to serve the site without an authentication strategy" do
-    ENV["GITHUB_ORG_ID"] = nil
+    ENV["GITHUB_ORG_NAME"] = nil
     ENV["GITHUB_TEAM_ID"] = nil
     ENV["GITHUB_TEAMS_ID"] = nil
     expect{get "/"}.to raise_error(JekyllAuth::ConfigError)
