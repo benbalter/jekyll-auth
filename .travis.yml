@@ -12,4 +12,4 @@ env:
   global:
     - GITHUB_CLIENT_ID=FOO
     - GITHUB_CLIENT_SECRET=BAR
-    - GITHUB_ORG_ID="balter-test-org"
+    - GITHUB_ORG_NAME="balter-test-org"

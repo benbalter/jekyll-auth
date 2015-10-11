@@ -19,7 +19,7 @@ describe "bin" do
       with_message(/prefix the jekyll-auth command with GITHUB_TOKEN/)
     end
 
-    it "errors if no team_id or org_id is given" do
+    it "errors if no team_id or org_name is given" do
       env = { "GITHUB_TOKEN" => "1234"}
       expect{execute_bin(env, "team_id")}.to raise_error(RuntimeError).
       with_message(/An org name and team ID are required/)

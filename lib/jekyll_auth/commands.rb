@@ -2,7 +2,7 @@ class JekyllAuth
   class Commands
 
     FILES = %w{Rakefile config.ru .gitignore .env}
-    VARS  = %w{client_id client_secret team_id org_id}
+    VARS  = %w{client_id client_secret team_id org_name}
 
     def self.source
       @source ||= File.expand_path( "../../templates", File.dirname(__FILE__) )

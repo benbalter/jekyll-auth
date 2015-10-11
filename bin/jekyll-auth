@@ -52,7 +52,7 @@ Mercenary.program("jekyll-auth") do |p|
         exit 1
       end
 
-      org = options["org"] || ENV["GITHUB_ORG_ID"]
+      org = options["org"] || ENV["GITHUB_ORG_NAME"]
       team = options["team"]
 
       if org.nil? || team.nil?
@@ -79,7 +79,7 @@ Mercenary.program("jekyll-auth") do |p|
       # Ensure environmental variables are set
       unless ["GITHUB_CLIENT_ID", "GITHUB_CLIENT_SECRET"].all? { |v| JekyllAuth::Commands.env_var_set?(v) }
         puts "Whoops. Looks like you forgot to tell Jekyll Auth about your app".red
-        puts "Be sure to run export GITHUB_CLIENT_ID=[client id], export GITHUB_CLIENT_SECRET=[client secret], and export GITHUB_ORG_ID=[org id] (or GITHUB_TEAM_ID)".red
+        puts "Be sure to run export GITHUB_CLIENT_ID=[client id], export GITHUB_CLIENT_SECRET=[client secret], and export GITHUB_ORG_NAME=[org name] (or GITHUB_TEAM_ID)".red
         puts "See the readme for more information on where to find these".red
         exit 1
       end
@@ -100,7 +100,7 @@ Mercenary.program("jekyll-auth") do |p|
     c.option "client_id", "--client_id", "Your oauth app client id"
     c.option "client_secret", "--client_secret", "Your oauth app client secret"
     c.option "team_id", "--team_id", "The team to authenticate against"
-    c.option "org_id", "--org_id", "An organization to authenticate against"
+    c.option "org_name", "--org_name", "An organization to authenticate against"
     c.action do |args, options|
 
       if find_executable("heroku").nil?
