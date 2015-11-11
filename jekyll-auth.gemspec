@@ -3,8 +3,8 @@ require './lib/jekyll_auth/version'
 Gem::Specification.new do |s|
   s.name                  = "jekyll-auth"
   s.version               = JekyllAuth::VERSION
-  s.summary               = "A simple way to use Github OAuth to serve a protected jekyll site to your GitHub organization"
-  s.description           = "A simple way to use Github Oauth to serve a protected jekyll site to your GitHub organization."
+  s.summary               = "A simple way to use GitHub OAuth to serve a protected jekyll site to your GitHub organization"
+  s.description           = "A simple way to use GitHub OAuth to serve a protected jekyll site to your GitHub organization."
   s.authors               = "Ben Balter"
   s.email                 = "ben@balter.com"
   s.homepage              = "https://github.com/benbalter/jekyll-auth"
@@ -14,7 +14,12 @@ Gem::Specification.new do |s|
   s.executables           = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths         = ["lib"]
 
-  s.add_dependency "jekyll", "~> 2.0"
+  if RUBY_VERSION =~ /1.9.3/
+    s.add_dependency "jekyll", "~> 2.0"
+  else
+    s.add_dependency "jekyll", ">= 2.0"
+  end
+
   s.add_dependency "sinatra-index", "~> 0.0"
   s.add_dependency "sinatra_auth_github", "~> 1.1"
   s.add_dependency "rack", "~> 1.6"
