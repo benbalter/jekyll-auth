@@ -3,8 +3,8 @@ require './lib/jekyll_auth/version'
 Gem::Specification.new do |s|
   s.name                  = "jekyll-auth"
   s.version               = JekyllAuth::VERSION
-  s.summary               = "A simple way to use Github OAuth to serve a protected jekyll site to your GitHub organization"
-  s.description           = "A simple way to use Github Oauth to serve a protected jekyll site to your GitHub organization."
+  s.summary               = "A simple way to use GitHub OAuth to serve a protected jekyll site to your GitHub organization"
+  s.description           = "A simple way to use GitHub OAuth to serve a protected jekyll site to your GitHub organization."
   s.authors               = "Ben Balter"
   s.email                 = "ben@balter.com"
   s.homepage              = "https://github.com/benbalter/jekyll-auth"
