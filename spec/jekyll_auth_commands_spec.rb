@@ -1,31 +1,30 @@
-require "spec_helper"
+require 'spec_helper'
 
-describe "commands" do
-
+describe 'commands' do
   before do
     setup_tmp_dir
   end
 
-  it "should find the template directory" do
+  it 'should find the template directory' do
     expect(File.directory?(JekyllAuth::Commands.source)).to eql(true)
     expect(File).to exist("#{JekyllAuth::Commands.source}/config.ru")
   end
 
-  it "should know the destination directory" do
+  it 'should know the destination directory' do
     expect(JekyllAuth::Commands.destination).to eql(tmp_dir)
   end
 
-  it "should execute a command" do
-    expect(JekyllAuth::Commands.execute_command("ls")).to match(/index\.html/)
+  it 'should execute a command' do
+    expect(JekyllAuth::Commands.execute_command('ls')).to match(/index\.html/)
   end
 
   it "should retrieve a team's ID" do
-    stub_request(:get, "https://api.github.com/orgs/batler-test-org/teams?per_page=100").
-    to_return(:status => 204, :body => [{:slug => "test-team", :id => 1}])
-    expect(JekyllAuth::Commands.team_id("batler-test-org", "test-team")).to eql(1)
+    stub_request(:get, 'https://api.github.com/orgs/batler-test-org/teams?per_page=100')
+      .to_return(status: 204, body: [{ slug: 'test-team', id: 1 }])
+    expect(JekyllAuth::Commands.team_id('batler-test-org', 'test-team')).to eql(1)
   end
 
-  it "should copy the template files" do
+  it 'should copy the template files' do
     expect(File).to_not exist("#{tmp_dir}/config.ru")
     JekyllAuth::Commands.copy_templates
     expect(File).to exist("#{tmp_dir}/config.ru")
@@ -42,16 +41,16 @@ describe "commands" do
     expect(JekyllAuth::Commands.changed?).to eql(true)
   end
 
-  it "knows when env vars are set" do
-    var = "SOME_ENV_VAR"
+  it 'knows when env vars are set' do
+    var = 'SOME_ENV_VAR'
 
     ENV.delete(var)
     expect(JekyllAuth::Commands.env_var_set?(var)).to eql(false)
 
-    ENV[var] = "bar"
+    ENV[var] = 'bar'
     expect(JekyllAuth::Commands.env_var_set?(var)).to eql(true)
 
-    ENV[var] = ""
+    ENV[var] = ''
     expect(JekyllAuth::Commands.env_var_set?(var)).to eql(false)
 
     ENV[var] = nil
@@ -65,12 +64,12 @@ describe "commands" do
     expect(JekyllAuth::Commands.heroku_remote_set?).to eql(true)
   end
 
-  it "should make an initial commit" do
+  it 'should make an initial commit' do
     `git init`
     `touch foo.md`
     `git add foo.md`
     JekyllAuth::Commands.initial_commit
-    output = JekyllAuth::Commands.execute_command "git", "log"
+    output = JekyllAuth::Commands.execute_command 'git', 'log'
     expect(output).to match(/\[Jekyll Auth\] Initial setup/)
   end
 end
