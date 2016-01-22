@@ -10,8 +10,9 @@ module Sinatra
 
         def fine_teams_authenticate!(team_whitelists)
           authenticate!
-          halt([401, 'Unauthorized User']) unless team_whitelists
-            .any? { |team_id, whitelist| github_team_access?(team_id) && whitelist.match(request.path_info) }
+          unless team_whitelists.any? { |team_id, whitelist| github_team_access?(team_id) && whitelist.match(request.path_info) }
+            halt([401, 'Unauthorized User'])
+          end
         end
       end
     end

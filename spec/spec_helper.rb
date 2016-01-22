@@ -62,7 +62,7 @@ RSpec.configure do |config|
 
   config.before do
     JekyllAuth.instance_variable_set(:@config, nil)
-    %w(GITHUB_ORG_NAME GITHUB_TEAM_ID GITHUB_TEAM_ID).each {|v| ENV.delete(v) }
+    %w(GITHUB_ORG_NAME GITHUB_TEAM_ID GITHUB_TEAM_ID).each { |v| ENV.delete(v) }
     setup_tmp_dir
   end
 end

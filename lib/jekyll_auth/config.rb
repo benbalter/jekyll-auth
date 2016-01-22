@@ -19,11 +19,10 @@ class JekyllAuth
 
   def self.whitelist_teams
     JekyllAuth.config
-      .select {|k,_| k =~ /^team_\d+$/ }
-      .inject({}) {|h, (k, whitelist)|
-        h[k.sub('team_', '')] = Regexp.new(whitelist.join('|'))
-        h
-      }
+              .select { |k, _| k =~ /^team_\d+$/ }
+              .each_with_object({}) do |(k, whitelist), hash|
+                hash[k.sub('team_', '')] = Regexp.new(whitelist.join('|'))
+              end
   end
 
   def self.ssl?

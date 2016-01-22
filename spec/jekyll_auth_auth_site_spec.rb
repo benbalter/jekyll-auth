@@ -34,14 +34,14 @@ describe 'logged in user' do
 
   context 'fine-grained team access' do
     before do
-      stub_request(:get, "https://api.github.com/teams/456/members/benbaltertest")
+      stub_request(:get, 'https://api.github.com/teams/456/members/benbaltertest')
         .to_return(status: 204)
       File.write(JekyllAuth.config_file, "jekyll_auth:\n  team_123:\n   - index.html\n  team_456:\n   - chicken.html\n")
       `bundle exec jekyll build`
     end
 
     it 'shows a page the user has access to' do
-      stub_request(:get, "https://api.github.com/teams/123/members/benbaltertest")
+      stub_request(:get, 'https://api.github.com/teams/123/members/benbaltertest')
         .to_return(status: 204)
 
       get '/index.html'
@@ -51,7 +51,7 @@ describe 'logged in user' do
     end
 
     it 'shows the securocat for a page the user does not have access to' do
-      stub_request(:get, "https://api.github.com/teams/123/members/benbaltertest")
+      stub_request(:get, 'https://api.github.com/teams/123/members/benbaltertest')
         .to_return(status: 404)
 
       get '/index.html'
