@@ -59,4 +59,5 @@ WebMock.disable_net_connect!
 
 RSpec.configure do |config|
   config.include(Sinatra::Auth::Github::Test::Helper)
+  config.before { JekyllAuth.instance_variable_set(:@config, nil) }
 end
