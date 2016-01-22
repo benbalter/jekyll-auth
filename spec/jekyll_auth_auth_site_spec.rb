@@ -32,6 +32,35 @@ describe 'logged in user' do
     expect(last_response.status).to eql(302)
     expect(last_response.headers['Location']).to match(%r{^https://github\.com/login/oauth/authorize})
   end
+
+  context 'fine-grained team access' do
+    before do
+      stub_request(:get, "https://api.github.com/teams/456/members/benbaltertest")
+        .to_return(status: 204)
+      File.write(JekyllAuth.config_file, "jekyll_auth:\n  team_123:\n   - index.html\n  team_456:\n   - chicken.html\n")
+      `bundle exec jekyll build`
+    end
+
+    it 'shows a page the user has access to' do
+      stub_request(:get, "https://api.github.com/teams/123/members/benbaltertest")
+        .to_return(status: 204)
+
+      get '/index.html'
+
+      expect(last_response.status).to eq(200)
+      expect(last_response.body).to eq('My awesome site')
+    end
+
+    it 'shows the securocat for a page the user does not have access to' do
+      stub_request(:get, "https://api.github.com/teams/123/members/benbaltertest")
+        .to_return(status: 404)
+
+      get '/index.html'
+
+      expect(last_response.status).to eq(403)
+      expect(last_response.body).to match(/securocat\.png/)
+    end
+  end
 end
 
 describe 'logged out user' do
@@ -42,6 +71,7 @@ describe 'logged out user' do
   end
 
   before do
+    setup_tmp_dir
     ENV['GITHUB_ORG_NAME'] = 'balter-test-org'
   end
 
@@ -70,5 +100,13 @@ describe 'logged out user' do
     ENV['GITHUB_TEAM_ID'] = nil
     ENV['GITHUB_TEAMS_ID'] = nil
     expect { get '/' }.to raise_error(JekyllAuth::ConfigError)
+  end
+
+  it 'will serve the site with only a team-based whitelist' do
+    ENV['GITHUB_ORG_NAME'] = nil
+    ENV['GITHUB_TEAM_ID'] = nil
+    ENV['GITHUB_TEAMS_ID'] = nil
+    File.write(JekyllAuth.config_file, "jekyll_auth:\n  team_123:\n   - index.html\n")
+    expect { get '/' }.to_not raise_error
   end
 end
