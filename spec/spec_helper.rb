@@ -50,6 +50,8 @@ def execute_bin(env, *args)
 end
 
 Dotenv.load
+ENV['GITHUB_CLIENT_ID'] ||= 'IGNORE'
+ENV['GITHUB_CLIENT_SECRET'] ||= 'IGNORE'
 setup_tmp_dir
 
 require_relative '../lib/jekyll-auth'
