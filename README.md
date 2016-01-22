@@ -102,6 +102,14 @@ jekyll_auth:
     - "^((?!draft).)*$"
 ```
 
+And if you want to make parts of the site available to specific teams, you can create a whitelist entry for each team:
+
+```yaml
+jekyll_auth:
+  team_1234:
+    - drafts?
+```
+
 There is also a more [extensive article containing installation instructions for Jekyll-Auth](http://fabian-kostadinov.github.io/2014/11/13/installation-of-jekyll-auth/) and a second one on [how to find your GitHub team ID](http://fabian-kostadinov.github.io/2015/01/16/how-to-find-a-github-team-id/).
 
 ### Requiring SSL
