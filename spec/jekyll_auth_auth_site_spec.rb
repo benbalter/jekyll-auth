@@ -8,7 +8,6 @@ describe 'logged in user' do
   end
 
   before(:each) do
-    setup_tmp_dir
     @user = make_user('login' => 'benbaltertest')
     login_as @user
 
@@ -71,7 +70,6 @@ describe 'logged out user' do
   end
 
   before do
-    setup_tmp_dir
     ENV['GITHUB_ORG_NAME'] = 'balter-test-org'
   end
 

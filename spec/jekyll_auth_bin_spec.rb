@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe 'bin' do
-  before(:each) do
-    setup_tmp_dir
-  end
-
   it 'spits out the help do' do
     env = { 'GITHUB_TOKEN' => nil }
     output = execute_bin(env, '--help')

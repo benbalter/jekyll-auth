@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe 'JekyllAuth' do
   before(:each) do
-    setup_tmp_dir
     JekyllAuth.instance_variable_set('@config', nil)
   end
 
