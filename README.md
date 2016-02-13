@@ -23,8 +23,8 @@ But what if you only want to share that site with a select number of people? Bef
 
 1. Navigate to [the GitHub app registration page](https://github.com/settings/applications/new)
 2. Give your app a name
-3. Tell GitHub the URL you want the app to eventually live at. If using a free Heroku account, this will be something like http://my-site.herokuapp.com
-4. Specify the callback URL; should be like this: https://my-site.herokuapp.com/auth/github/callback; note that this is **https**, not http.
+3. Tell GitHub the URL you want the app to eventually live at. If using a free Heroku account, this will be something like <http://my-site.herokuapp.com>
+4. Specify the callback URL; should be like this: <https://my-site.herokuapp.com/auth/github/callback>; note that this is **https**, not http.
 5. Hit Save, but leave the page open, you'll need some of the information in a moment
 
 Remember the 'my-site' part for later on when using `heroku create`. Also, my-site is often called 'app-name' in Heroku documentation.
@@ -33,11 +33,11 @@ Remember the 'my-site' part for later on when using `heroku create`. Also, my-si
 
 1. Within your new site repository or orphaned github [branch](https://help.github.com/articles/creating-project-pages-manually/) (the branch could be named anything except 'gh-pages' since this would then be public on Github!), add `gem 'jekyll-auth'` to your `Gemfile` or if you don't already have a `Gemfile`, create a file called `Gemfile` in the root of your site's repository with the following content:
 
-  ```ruby
-  source "https://rubygems.org"
+   ```ruby
+   source "https://rubygems.org"
 
-  gem 'jekyll-auth'
-  ```
+   gem 'jekyll-auth'
+   ```
 
 2. `cd` into your project's directory and run `bundle install`. If you get an error using `bundle install`, see Troubleshooting below. 
 
@@ -84,7 +84,7 @@ You'll want to add a [personal access token](https://github.com/settings/tokens/
 
 ### Whitelisting
 
-Don't want to require authentication for every part of your site? Fine! Add a whitelist to your Jekyll's *_config.yml_* file:
+Don't want to require authentication for every part of your site? Fine! Add a whitelist to your Jekyll's **config.yml** file:
 
 ```yaml
 jekyll_auth:
@@ -94,7 +94,7 @@ jekyll_auth:
 
 `jekyll_auth.whitelist` takes an array of regular expressions as strings. The default auth behavior checks (and blocks) against root (`/`). Any path defined in the whitelist won't require authentication on your site.
 
-What if you want to go the other way, and unauthenticate the entire site _except_ for certain portions? You can define some regex magic for that:
+What if you want to go the other way, and unauthenticate the entire site *except* for certain portions? You can define some regex magic for that:
 
 ```yaml
 jekyll_auth:
@@ -146,11 +146,11 @@ GITHUB_TEAM_ID=12345
 
 Every time you push to Heroku, we take advantage of the fact that Heroku automatically runs the `rake assets:precompile` command (normally used for Rails sites) to build our Jekyll site and store it statically, just like GitHub pages would.
 
-Anytime a request comes in for a page, we run it through [Sinatra](http://www.sinatrarb.com/) (using the `_site` folder as the static file folder, just as `public` would be normally), and authenticate it using [sinatra_auth_github](https://github.com/atmos/sinatra_auth_github).
+Anytime a request comes in for a page, we run it through [Sinatra](http://www.sinatrarb.com/) (using the `_site` folder as the static file folder, just as `public` would be normally), and authenticate it using [sinatra\_auth\_github](https://github.com/atmos/sinatra_auth_github).
 
 If they're in the org, they get the page. Otherwise, all they ever get is [the bouncer](http://octodex.github.com/bouncer/).
 
-## Upgrading from Jekyll Auth < 0.1.0
+## Upgrading from Jekyll Auth &lt; 0.1.0
 
 1. `cd` to your project directory
 2. `rm config.ru`
@@ -163,6 +163,7 @@ If they're in the org, they get the page. Otherwise, all they ever get is [the b
 
 * **ERROR: YOUR SITE COULD NOT BE BUILT** during install, either locally or on Heroku. You likely need to add `exclude: [vendor]` to `_config.yml` in your branch's root directory (create the file if it does not exist already). If you still have problems on the *local* install, you may have better luck using `bundle install --deployment`, but be sure to add the resulting 'vendor' directory to .gitignore. For completeness, the full error may look something like this:
 
+
 ```
 remote:        Configuration file: none
 remote:                     ERROR: YOUR SITE COULD NOT BE BUILT:
@@ -171,6 +172,7 @@ remote:                            Invalid date '0000-00-00': Post '/vendor/bund
 ```
 
 * **Pushing to heroku**. If you are working from a new Github-cloned repo (where you have not run `heroku create`), you may also want to push to Heroku. Instead of adding the remote in the standard way with Git, do this: 
+
 
 ```
 heroku git:remote -a my-site 
