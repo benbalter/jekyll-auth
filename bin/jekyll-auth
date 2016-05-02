@@ -72,6 +72,9 @@ Mercenary.program('jekyll-auth') do |p|
   p.command(:serve) do |c|
     c.syntax 'serve'
     c.description 'Run Jekyll Auth site locally'
+    c.option 'host', '--host <HOST>', 'Listen at the given hostname, e.g., 127.0.0.1'
+    c.option 'port', '--port <PORT>', 'Listen on the given port, e.g., 4000'
+
     c.action do |_args, _options|
       # Ensure environmental variables are set
       unless %w(GITHUB_CLIENT_ID GITHUB_CLIENT_SECRET).all? { |v| JekyllAuth::Commands.env_var_set?(v) }
@@ -84,9 +87,12 @@ Mercenary.program('jekyll-auth') do |p|
       # build site
       p.go ['build']
 
+      host = _options['host'] || '0.0.0.0'
+      port = _options['port'] || '4000'
+
       puts 'Spinning up the server with authentication. Use CTRL-C to stop.'
       puts 'To preview the site without authentication, use the `jekyll serve` command'
-      JekyllAuth::Commands.execute_command 'bundle', 'exec', 'rackup', '-p', '4000'
+      JekyllAuth::Commands.execute_command 'bundle', 'exec', 'rackup', '-o', host, '-p', port
     end
   end
 
