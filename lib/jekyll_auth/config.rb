@@ -3,9 +3,9 @@ class JekyllAuth
     File.join(Dir.pwd, '_config.yml')
   end
 
-  def self.jekyllConfig
+  def self.jekyll_config
     @config ||= begin
-      jekyllConfig = YAML.safe_load_file(config_file)
+      jekyll_config = YAML.safe_load_file(config_file)
     rescue
       {}
     end
@@ -13,7 +13,7 @@ class JekyllAuth
 
   def self.destination
     @config ||= begin
-      JekyllAuth.jekyllConfig['destination'] || '_site'
+      JekyllAuth.jekyll_config['destination'] || '_site'
     rescue
       {}
     end
@@ -21,14 +21,14 @@ class JekyllAuth
 
   def self.config
     @config ||= begin
-      JekyllAuth.jekyllConfig['jekyll_auth'] || {}
+      JekyllAuth.jekyll_config['jekyll_auth'] || {}
     rescue
       {}
     end
   end
 
   def self.whitelist
-    whitelist = JekyllAuth.jekyllConfig['whitelist']
+    whitelist = JekyllAuth.jekyll_config['whitelist']
     Regexp.new(whitelist.join('|')) unless whitelist.nil?
   end
 
