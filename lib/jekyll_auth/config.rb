@@ -17,6 +17,14 @@ class JekyllAuth
     Regexp.new(whitelist.join('|')) unless whitelist.nil?
   end
 
+  def self.whitelist_teams
+    JekyllAuth.config
+              .select { |k, _| k =~ /^team_\d+$/ }
+              .each_with_object({}) do |(k, whitelist), hash|
+                hash[k.sub('team_', '')] = Regexp.new(whitelist.join('|'))
+              end
+  end
+
   def self.ssl?
     !!JekyllAuth.config['ssl']
   end

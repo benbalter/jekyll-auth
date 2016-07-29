@@ -43,6 +43,18 @@ describe 'strategies' do
     end
   end
 
+  it 'should detect the teams_fine strategy (and take precedence over other strategies)' do
+    File.write(JekyllAuth.config_file, "jekyll_auth:\n  team_123:\n   - drafts?\n")
+
+    with_env('GITHUB_ORG_NAME', 'some_org') do
+      with_env('GITHUB_TEAM_ID', '1234') do
+        with_env('GITHUB_TEAM_IDS', '1234,5678') do
+          expect(@helper.authentication_strategy).to eql(:teams_fine)
+        end
+      end
+    end
+  end
+
   it 'should know if a path is whitelisted' do
     File.write(JekyllAuth.config_file, "jekyll_auth:\n  whitelist:\n   - drafts?\n")
 

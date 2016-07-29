@@ -8,7 +8,6 @@ describe 'jekyll site' do
   end
 
   before do
-    setup_tmp_dir
     File.write File.expand_path('_config.yml', tmp_dir), 'foo: bar'
     `bundle exec jekyll build`
   end

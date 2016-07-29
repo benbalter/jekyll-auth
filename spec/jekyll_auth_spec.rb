@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe 'JekyllAuth' do
   before(:each) do
-    setup_tmp_dir
     JekyllAuth.instance_variable_set('@config', nil)
   end
 
@@ -42,5 +41,11 @@ describe 'JekyllAuth' do
   it 'should parse the whitelist' do
     File.write(JekyllAuth.config_file, "jekyll_auth:\n  whitelist:\n   - drafts?\n")
     expect(JekyllAuth.whitelist).to eql(/drafts?/)
+  end
+
+  it 'should parse the teams' do
+    File.write(JekyllAuth.config_file, "jekyll_auth:\n  team_123:\n   - drafts?\n  team_456:\n   - chicken?\n")
+    expect(JekyllAuth.whitelist_teams['123']).to eql(/drafts?/)
+    expect(JekyllAuth.whitelist_teams['456']).to eql(/chicken?/)
   end
 end

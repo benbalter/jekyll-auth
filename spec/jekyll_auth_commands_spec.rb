@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe 'commands' do
-  before do
-    setup_tmp_dir
-  end
-
   it 'should find the template directory' do
     expect(File.directory?(JekyllAuth::Commands.source)).to eql(true)
     expect(File).to exist("#{JekyllAuth::Commands.source}/config.ru")

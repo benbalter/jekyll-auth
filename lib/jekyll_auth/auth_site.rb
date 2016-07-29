@@ -27,6 +27,8 @@ class JekyllAuth
         github_team_authenticate! ENV['GITHUB_TEAM_ID']
       when :teams
         github_teams_authenticate! ENV['GITHUB_TEAM_IDS'].split(',')
+      when :teams_fine
+        fine_teams_authenticate! JekyllAuth.whitelist_teams
       when :org
         github_organization_authenticate! ENV['GITHUB_ORG_NAME']
       else

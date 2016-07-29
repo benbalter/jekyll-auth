@@ -1,10 +1,19 @@
 module Sinatra
   module Auth
     module Github
-      # Like the native github_team_authenticate! but accepts an array of team ids
-      def github_teams_authenticate!(teams)
-        authenticate!
-        halt([401, 'Unauthorized User']) unless teams.any? { |team_id| github_team_access?(team_id) }
+      module Helpers
+        # Like the native github_team_authenticate! but accepts an array of team ids
+        def github_teams_authenticate!(teams)
+          authenticate!
+          halt([401, 'Unauthorized User']) unless teams.any? { |team_id| github_team_access?(team_id) }
+        end
+
+        def fine_teams_authenticate!(team_whitelists)
+          authenticate!
+          unless team_whitelists.any? { |team_id, whitelist| github_team_access?(team_id) && whitelist.match(request.path_info) }
+            halt([401, 'Unauthorized User'])
+          end
+        end
       end
     end
   end

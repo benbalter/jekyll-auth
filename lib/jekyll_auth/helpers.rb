@@ -6,7 +6,9 @@ class JekyllAuth
     end
 
     def authentication_strategy
-      if !ENV['GITHUB_TEAM_ID'].to_s.blank?
+      if JekyllAuth.whitelist_teams.any?
+        :teams_fine
+      elsif !ENV['GITHUB_TEAM_ID'].to_s.blank?
         :team
       elsif !ENV['GITHUB_TEAM_IDS'].to_s.blank?
         :teams
