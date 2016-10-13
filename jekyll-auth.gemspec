@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rack-ssl-enforcer', '~> 0.2'
   s.add_dependency 'mercenary', '~> 0.3'
   s.add_dependency 'safe_yaml', '~> 1.0'
-  s.add_dependency 'colorator', '~> 0.1'
+  s.add_dependency 'colorator', '~> 1.0'
   s.add_dependency 'activesupport', '~> 4.0'
   s.add_development_dependency 'rspec', '~> 3.1'
   s.add_development_dependency 'rack-test', '~> 0.6'
