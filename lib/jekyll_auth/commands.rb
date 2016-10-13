@@ -19,7 +19,7 @@ class JekyllAuth
 
     def self.execute_command(*args)
       output, status = Open3.capture2e(*args)
-      raise "Command `#{args.join(" ")}` failed: #{output}" if status.zero?
+      raise "Command `#{args.join(" ")}` failed: #{output}" unless status.exitstatus.zero?
       output
     end
 
