@@ -4,7 +4,7 @@ class JekyllAuth
     VARS  = %w(client_id client_secret team_id org_name).freeze
 
     def self.source
-      @source ||= File.expand_path('../../templates', File.dirname(__FILE__))
+      @source ||= File.expand_path("../../templates", File.dirname(__FILE__))
     end
 
     def self.destination
@@ -12,14 +12,14 @@ class JekyllAuth
     end
 
     def self.changed?
-      execute_command('git', 'status', destination, '--porcelain').length != 0
+      !execute_command("git", "status", destination, "--porcelain").empty?
     rescue
       false
     end
 
     def self.execute_command(*args)
       output, status = Open3.capture2e(*args)
-      fail "Command `#{args.join(' ')}` failed: #{output}" if status != 0
+      raise "Command `#{args.join(" ")}` failed: #{output}" if status.zero?
       output
     end
 
@@ -35,7 +35,7 @@ class JekyllAuth
     end
 
     def self.team_id(org, team)
-      client = Octokit::Client.new access_token: ENV['GITHUB_TOKEN']
+      client = Octokit::Client.new :access_token => ENV["GITHUB_TOKEN"]
       client.auto_paginate = true
       teams = client.organization_teams org
       found = teams.find { |t| t[:slug] == team }
@@ -47,25 +47,25 @@ class JekyllAuth
     end
 
     def self.init_repo
-      execute_command 'git', 'init', destination
+      execute_command "git", "init", destination
       FILES.each do |file|
-        next if file == '.env'
-        execute_command('git', 'add', '--', "#{destination}/#{file}")
+        next if file == ".env"
+        execute_command("git", "add", "--", "#{destination}/#{file}")
       end
     end
 
     def self.initial_commit
-      execute_command 'git', 'commit', '-m', "'[Jekyll Auth] Initial setup'"
+      execute_command "git", "commit", "-m", "'[Jekyll Auth] Initial setup'"
     end
 
     def self.heroku_remote_set?
-      remotes = execute_command 'git', 'remote', '-v'
-      !!(remotes =~ /^heroku\s/)
+      remotes = execute_command "git", "remote", "-v"
+      !!(remotes =~ %r!^heroku\s!)
     end
 
     def self.configure_heroku(options)
       VARS.each do |var|
-        execute_command 'heroku', 'config:set', "GITHUB_#{var.upcase}=#{options[var]}" if options[var]
+        execute_command "heroku", "config:set", "GITHUB_#{var.upcase}=#{options[var]}" if options[var]
       end
     end
   end
