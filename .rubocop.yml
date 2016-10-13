@@ -12,9 +12,13 @@ Metrics/LineLength:
 
 Style/FileName:
   Enabled: false
-  
+
 Metrics/BlockLength:
   Enabled: false
 
 Style/DoubleNegation:
   Enabled: false
+
+AllCops:
+  Exclude:
+    - vendor/**/*
