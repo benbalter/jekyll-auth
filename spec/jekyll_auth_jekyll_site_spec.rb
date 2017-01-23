@@ -40,5 +40,4 @@ describe "jekyll site" do
     expect(last_response.status).to eql(404)
     expect(last_response.body).to eql("My custom 404")
   end
-
 end

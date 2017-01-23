@@ -1,10 +1,9 @@
 require "spec_helper"
 
 describe "JekyllAuth" do
-
   before(:each) do
     setup_tmp_dir
-    JekyllAuth.instance_variable_set("@config",nil)
+    JekyllAuth.instance_variable_set("@config", nil)
   end
 
   it "should know the config file path" do
@@ -23,7 +22,7 @@ describe "JekyllAuth" do
 
   it "should return the config hash if the config files contains jekyll_auth" do
     File.write(JekyllAuth.config_file, "jekyll_auth:\n  ssl: true\n  whitelist:\n   - drafts?\n")
-    expect(JekyllAuth.config).to eql({"ssl"=>true, "whitelist"=>["drafts?"]})
+    expect(JekyllAuth.config).to eql("ssl" => true, "whitelist" => ["drafts?"])
   end
 
   it "should disable ssl by default" do
@@ -42,6 +41,6 @@ describe "JekyllAuth" do
 
   it "should parse the whitelist" do
     File.write(JekyllAuth.config_file, "jekyll_auth:\n  whitelist:\n   - drafts?\n")
-    expect(JekyllAuth.whitelist).to eql(/drafts?/)
+    expect(JekyllAuth.whitelist).to eql(%r!drafts?!)
   end
 end

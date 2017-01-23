@@ -13,11 +13,11 @@ class JekyllAuth
   end
 
   def self.whitelist
-    whitelist = JekyllAuth::config["whitelist"]
+    whitelist = JekyllAuth.config["whitelist"]
     Regexp.new(whitelist.join("|")) unless whitelist.nil?
   end
 
   def self.ssl?
-    !!JekyllAuth::config["ssl"]
+    !!JekyllAuth.config["ssl"]
   end
 end

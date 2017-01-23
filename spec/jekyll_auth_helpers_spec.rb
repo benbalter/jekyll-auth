@@ -1,11 +1,10 @@
 require "spec_helper"
 
 describe "strategies" do
-
   class TestHelper
     include JekyllAuth::Helpers
 
-    def initialize(path=nil)
+    def initialize(path = nil)
       @path = path
     end
 
@@ -17,7 +16,7 @@ describe "strategies" do
   before(:each) do
     JekyllAuth.instance_variable_set("@config", nil)
     @helper = TestHelper.new
-    ENV["GITHUB_ORG_ID"] = nil
+    ENV["GITHUB_ORG_NAME"] = nil
     ENV["GITHUB_TEAM_ID"] = nil
     ENV["GITHUB_TEAMS_ID"] = nil
   end
@@ -27,7 +26,7 @@ describe "strategies" do
   end
 
   it "should detect the org strategy" do
-    with_env("GITHUB_ORG_ID", "some_org") do
+    with_env("GITHUB_ORG_NAME", "some_org") do
       expect(@helper.authentication_strategy).to eql(:org)
     end
   end

@@ -1,4 +1,8 @@
 language: ruby
+rvm:
+  - 2.0
+  - 2.1
+  - 2.2
 script: "./script/cibuild"
 
 before_script:
@@ -12,4 +16,4 @@ env:
   global:
     - GITHUB_CLIENT_ID=FOO
     - GITHUB_CLIENT_SECRET=BAR
-    - GITHUB_ORG_ID="balter-test-org"
+    - GITHUB_ORG_NAME="balter-test-org"

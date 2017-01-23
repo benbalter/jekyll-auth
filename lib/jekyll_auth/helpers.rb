@@ -6,11 +6,11 @@ class JekyllAuth
     end
 
     def authentication_strategy
-      if !ENV['GITHUB_TEAM_ID'].to_s.blank?
+      if !ENV["GITHUB_TEAM_ID"].to_s.blank?
         :team
-      elsif !ENV['GITHUB_TEAM_IDS'].to_s.blank?
+      elsif !ENV["GITHUB_TEAM_IDS"].to_s.blank?
         :teams
-      elsif !ENV['GITHUB_ORG_ID'].to_s.blank?
+      elsif !ENV["GITHUB_ORG_NAME"].to_s.blank?
         :org
       end
     end

@@ -1,11 +1,10 @@
 class JekyllAuth
   class Commands
-
-    FILES = %w{Rakefile config.ru .gitignore .env}
-    VARS  = %w{client_id client_secret team_id org_id}
+    FILES = %w(Rakefile config.ru .gitignore .env).freeze
+    VARS  = %w(client_id client_secret team_id org_name).freeze
 
     def self.source
-      @source ||= File.expand_path( "../../templates", File.dirname(__FILE__) )
+      @source ||= File.expand_path("../../templates", File.dirname(__FILE__))
     end
 
     def self.destination
@@ -13,14 +12,14 @@ class JekyllAuth
     end
 
     def self.changed?
-      execute_command("git", "status", destination, "--porcelain").length != 0
+      !execute_command("git", "status", destination, "--porcelain").empty?
     rescue
       false
     end
 
     def self.execute_command(*args)
       output, status = Open3.capture2e(*args)
-      raise "Command `#{args.join(" ")}` failed: #{output}" if status != 0
+      raise "Command `#{args.join(" ")}` failed: #{output}" unless status.exitstatus.zero?
       output
     end
 
@@ -44,7 +43,7 @@ class JekyllAuth
     end
 
     def self.env_var_set?(var)
-      !(ENV[var].to_s.blank?)
+      !ENV[var].to_s.blank?
     end
 
     def self.init_repo
@@ -61,7 +60,7 @@ class JekyllAuth
 
     def self.heroku_remote_set?
       remotes = execute_command "git", "remote", "-v"
-      !!(remotes =~ /^heroku\s/)
+      !!(remotes =~ %r!^heroku\s!)
     end
 
     def self.configure_heroku(options)

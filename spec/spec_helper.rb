@@ -1,15 +1,15 @@
 require "bundler/setup"
-require 'fileutils'
+require "fileutils"
 
-ENV['RACK_ENV'] = 'test'
-$:.push File.join(File.dirname(__FILE__), '..', 'lib')
+ENV["RACK_ENV"] = "test"
+$LOAD_PATH.push File.join(File.dirname(__FILE__), "..", "lib")
 
-require 'rack/test'
-require 'sinatra/auth/github'
-require 'sinatra/auth/github/test/test_helper'
-require 'webmock/rspec'
-require 'dotenv'
-require 'open3'
+require "rack/test"
+require "sinatra/auth/github"
+require "sinatra/auth/github/test/test_helper"
+require "webmock/rspec"
+require "dotenv"
+require "open3"
 
 def base_dir
   File.expand_path "../", File.dirname(__FILE__)
@@ -50,6 +50,8 @@ def execute_bin(env, *args)
 end
 
 Dotenv.load
+ENV["GITHUB_CLIENT_ID"] ||= "IGNORE"
+ENV["GITHUB_CLIENT_SECRET"] ||= "IGNORE"
 setup_tmp_dir
 
 require_relative "../lib/jekyll-auth"

@@ -1,7 +1,6 @@
 require "spec_helper"
 
 describe "commands" do
-
   before do
     setup_tmp_dir
   end
@@ -16,12 +15,12 @@ describe "commands" do
   end
 
   it "should execute a command" do
-    expect(JekyllAuth::Commands.execute_command("ls")).to match(/index\.html/)
+    expect(JekyllAuth::Commands.execute_command("ls")).to match(%r!index\.html!)
   end
 
   it "should retrieve a team's ID" do
-    stub_request(:get, "https://api.github.com/orgs/batler-test-org/teams?per_page=100").
-    to_return(:status => 204, :body => [{:slug => "test-team", :id => 1}])
+    stub_request(:get, "https://api.github.com/orgs/batler-test-org/teams?per_page=100")
+      .to_return(:status => 204, :body => [{ :slug => "test-team", :id => 1 }])
     expect(JekyllAuth::Commands.team_id("batler-test-org", "test-team")).to eql(1)
   end
 
@@ -71,6 +70,6 @@ describe "commands" do
     `git add foo.md`
     JekyllAuth::Commands.initial_commit
     output = JekyllAuth::Commands.execute_command "git", "log"
-    expect(output).to match(/\[Jekyll Auth\] Initial setup/)
+    expect(output).to match(%r!\[Jekyll Auth\] Initial setup!)
   end
 end
