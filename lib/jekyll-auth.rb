@@ -11,6 +11,7 @@ require_relative "jekyll_auth/auth_site"
 require_relative "jekyll_auth/jekyll_site"
 require_relative "jekyll_auth/config_error"
 require_relative "jekyll_auth/commands"
+require_relative "jekyll_auth/sinatra/auth/github"
 
 Dotenv.load
 
