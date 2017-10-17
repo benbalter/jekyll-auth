@@ -6,7 +6,8 @@ Following these guidelines helps to communicate that you respect the time of the
 
 ## Troubleshooting
 
-See [the troubleshooting guidelines](troubleshooting.md).
+Having trouble with Jekyll Auth? Check out [the troubleshooting guidelines](troubleshooting.md) for solutions to common problems.
+
 
 ## How to report a bug
 
@@ -32,6 +33,8 @@ Feature requests are welcome. But take a moment to find out whether your idea fi
 
 [Open an issue](https://github.com/benbalter/jekyll-auth/issues/new) which describes the feature you would like to see, why you want it, how it should work, etc.
 
+
+
 ## Your first contribution
 
 We'd love for you to contribute to the project. Unsure where to begin contributing to Jekyll Auth? You can start by looking through these "good first issue" and "help wanted" issues:
@@ -51,7 +54,7 @@ Here's a few general guidelines for proposing changes:
 * Do not commit changes to files that are irrelevant to your feature or bug fix
 * Don't bump the version number in your pull request (it will be bumped prior to release)
 
-At a high level, the process for proposing changes is:
+At a high level, [the process for proposing changes](https://guides.github.com/introduction/flow/) is:
 
 1. Fork the project
 2. Create a descriptively named branch
@@ -70,4 +73,4 @@ At a high level, the process for proposing changes is:
 
 ## Code of conduct
 
-This project is governed by [the Contributor Covenant Code of Conduct](CONTRIBUTING.md). By participating, you are expected to uphold this code.
+This project is governed by [the Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
