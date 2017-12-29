@@ -1,23 +1,26 @@
 class JekyllAuth
   def self.config_file
-    File.join(Dir.pwd, "_config.yml")
+    File.join(Dir.pwd, '_config.yml')
+  end
+
+  def self.jekyll_config
+    @config ||= YAML.safe_load_file(config_file) rescue {}
   end
 
   def self.config
-    @config ||= begin
-      config = YAML.safe_load_file(config_file)
-      config["jekyll_auth"] || {}
-    rescue
-      {}
-    end
+    jekyll_config.fetch('jekyll_auth', {})
+  end
+
+  def self.destination
+    jekyll_config.fetch('destination', File.expand_path('_site', Dir.pwd))
   end
 
   def self.whitelist
-    whitelist = JekyllAuth.config["whitelist"]
+    whitelist = config['whitelist']
     Regexp.new(whitelist.join("|")) unless whitelist.nil?
   end
 
   def self.ssl?
-    !!JekyllAuth.config["ssl"]
+    !!config['ssl']
   end
 end
