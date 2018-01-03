@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JekyllAuth
   class JekyllSite < Sinatra::Base
     register Sinatra::Index

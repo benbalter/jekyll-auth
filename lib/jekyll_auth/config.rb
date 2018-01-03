@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JekyllAuth
   def self.config_file
     File.join(Dir.pwd, "_config.yml")
@@ -7,7 +9,7 @@ class JekyllAuth
     @config ||= begin
       config = YAML.safe_load_file(config_file)
       config["jekyll_auth"] || {}
-    rescue
+    rescue StandardError
       {}
     end
   end
