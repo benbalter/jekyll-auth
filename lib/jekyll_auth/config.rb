@@ -6,7 +6,9 @@ class JekyllAuth
   end
 
   def self.jekyll_config
-    @config ||= YAML.safe_load_file(config_file) rescue {}
+    @config ||= YAML.safe_load_file(config_file)
+  rescue StandardError
+    {}
   end
 
   def self.config
