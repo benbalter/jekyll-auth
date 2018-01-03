@@ -2,7 +2,7 @@
 
 class JekyllAuth
   def self.config_file
-    File.join(Dir.pwd, '_config.yml')
+    File.join(Dir.pwd, "_config.yml")
   end
 
   def self.jekyll_config
@@ -10,19 +10,19 @@ class JekyllAuth
   end
 
   def self.config
-    jekyll_config.fetch('jekyll_auth', {})
+    jekyll_config.fetch("jekyll_auth", {})
   end
 
   def self.destination
-    jekyll_config.fetch('destination', File.expand_path('_site', Dir.pwd))
+    jekyll_config.fetch("destination", File.expand_path("_site", Dir.pwd))
   end
 
   def self.whitelist
-    whitelist = config['whitelist']
+    whitelist = config["whitelist"]
     Regexp.new(whitelist.join("|")) unless whitelist.nil?
   end
 
   def self.ssl?
-    !!config['ssl']
+    !!config["ssl"]
   end
 end
