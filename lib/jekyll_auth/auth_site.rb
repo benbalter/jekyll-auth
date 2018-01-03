@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JekyllAuth
   class AuthSite < Sinatra::Base
     configure :production do

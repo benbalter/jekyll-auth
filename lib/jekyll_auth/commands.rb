@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JekyllAuth
   class Commands
     FILES = %w(Rakefile config.ru .gitignore .env).freeze
@@ -13,7 +15,7 @@ class JekyllAuth
 
     def self.changed?
       !execute_command("git", "status", destination, "--porcelain").empty?
-    rescue
+    rescue StandardError
       false
     end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "sinatra-index"
 require "sinatra_auth_github"
 require "dotenv"

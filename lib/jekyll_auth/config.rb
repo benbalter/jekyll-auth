@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JekyllAuth
   def self.config_file
     File.join(Dir.pwd, '_config.yml')
