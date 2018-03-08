@@ -107,7 +107,7 @@ Mercenary.program("jekyll-auth") do |p|
     c.option "org_name", "--org_name", "An organization to authenticate against"
     c.action do |_args, options|
       if find_executable("heroku").nil?
-        say "Looks like we're missing the Heroku client. Let's see if we can't install it..."
+        puts "Looks like we're missing the Heroku client. Let's see if we can't install it..."
         JekyllAuth::Commands.execute_command "wget", "-qO-", "https://toolbelt.heroku.com/install.sh", "|", "sh"
       end
 
