@@ -22,3 +22,6 @@ Style/DoubleNegation:
 AllCops:
   Exclude:
     - vendor/**/*
+
+Jekyll/NoPutsAllowed:
+  Enabled: false
