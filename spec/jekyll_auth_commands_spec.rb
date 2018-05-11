@@ -22,7 +22,11 @@ describe "commands" do
 
   it "should retrieve a team's ID" do
     stub_request(:get, "https://api.github.com/orgs/batler-test-org/teams?per_page=100")
-      .to_return(:status => 204, :body => [{ :slug => "test-team", :id => 1 }])
+      .to_return(
+        :status => 200,
+        :body => [{ :slug => "test-team", :id => 1 }].to_json,
+        headers: { 'Content-Type'=>'application/json' }
+      )
     expect(JekyllAuth::Commands.team_id("batler-test-org", "test-team")).to eql(1)
   end
 
