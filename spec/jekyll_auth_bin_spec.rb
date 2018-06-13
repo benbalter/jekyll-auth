@@ -47,7 +47,7 @@ describe "bin" do
     `git add .`
     `git commit -m 'initial commit'`
     execute_bin({ "RACK_ENV" => "TEST" }, "new")
-    execute_bin({}, "setup", "--client_id", "my_client_id", "--client_secret", "my_client_secret", "--team_id", "my_team_id", "--org_name", "my_org_name")
+    execute_bin({ "RACK_ENV" => "TEST" }, "setup", "--client_id", "my_client_id", "--client_secret", "my_client_secret", "--team_id", "my_team_id", "--org_name", "my_org_name")
     VARS  = %w(client_id client_secret team_id org_name)
     VARS.each do |var|
       expect((`heroku config:get GITHUB_#{var.upcase}`).strip).to eql("my_#{var}")
