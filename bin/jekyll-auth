@@ -101,10 +101,10 @@ Mercenary.program("jekyll-auth") do |p|
   p.command(:setup) do |c|
     c.syntax "setup"
     c.description "Configure Heroku for use with your Jekyll Auth site"
-    c.option "client_id", "--client_id", "Your oauth app client id"
-    c.option "client_secret", "--client_secret", "Your oauth app client secret"
-    c.option "team_id", "--team_id", "The team to authenticate against"
-    c.option "org_name", "--org_name", "An organization to authenticate against"
+    c.option "client_id", "--client_id <ID>", "Your oauth app client id"
+    c.option "client_secret", "--client_secret <SECRET>", "Your oauth app client secret"
+    c.option "team_id", "--team_id <ID>", "The team to authenticate against"
+    c.option "org_name", "--org_name <NAME>", "An organization to authenticate against"
     c.action do |_args, options|
       if find_executable("heroku").nil?
         puts "Looks like we're missing the Heroku client. Let's see if we can't install it..."
