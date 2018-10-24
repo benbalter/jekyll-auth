@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rack", "~> 1.6"
   s.add_dependency "rack-protection", "~> 1.5", ">= 1.5.5"
   s.add_dependency "rack-ssl-enforcer", "~> 0.2"
-  s.add_dependency "rake", "~> 10.3"
+  s.add_dependency "rake", ">= 10.3", "< 13.0"
   s.add_dependency "safe_yaml", "~> 1.0"
   s.add_dependency "sinatra-index", "~> 0.0"
   s.add_dependency "sinatra_auth_github", "~> 1.1"
