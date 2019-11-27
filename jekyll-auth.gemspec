@@ -16,10 +16,10 @@ Gem::Specification.new do |s|
   s.executables           = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths         = ["lib"]
 
-  s.add_dependency "activesupport", "~> 4.0"
+  s.add_dependency "activesupport", "~> 5.0"
   s.add_dependency "colorator", "~> 1.0"
   s.add_dependency "dotenv", "~> 2.0"
-  s.add_dependency "jekyll", "~> 3.0"
+  s.add_dependency "jekyll", "~> 4.0"
   s.add_dependency "mercenary", "~> 0.3"
   s.add_dependency "rack", "~> 1.6"
   s.add_dependency "rack-protection", "~> 1.5", ">= 1.5.5"
