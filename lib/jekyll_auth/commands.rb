@@ -22,6 +22,7 @@ class JekyllAuth
     def self.execute_command(*args)
       output, status = Open3.capture2e(*args)
       raise "Command `#{args.join(" ")}` failed: #{output}" unless status.exitstatus.zero?
+
       output
     end
 
@@ -52,6 +53,7 @@ class JekyllAuth
       execute_command "git", "init", destination
       FILES.each do |file|
         next if file == ".env"
+
         execute_command("git", "add", "--", "#{destination}/#{file}")
       end
     end

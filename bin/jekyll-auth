@@ -18,9 +18,7 @@ Mercenary.program("jekyll-auth") do |p|
     c.action do |_args, _options|
       JekyllAuth::Commands.copy_templates
 
-      if JekyllAuth::Commands.changed?
-        puts "Looks like we've made some changes, you may want to do a git commit and git push sometime soon".yellow
-      end
+      puts "Looks like we've made some changes, you may want to do a git commit and git push sometime soon".yellow if JekyllAuth::Commands.changed?
 
       puts "Setup complete. Run `jekyll-auth` to view the authenticated site."
     end
