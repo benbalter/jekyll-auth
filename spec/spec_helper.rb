@@ -48,6 +48,7 @@ end
 def execute_bin(env, *args)
   output, status = Open3.capture2e(env, bin_path, *args)
   raise "Command `#{bin_path} #{args.join(" ")}` failed: #{output}" if status != 0
+
   output
 end
 
