@@ -1,8 +1,8 @@
 language: ruby
 rvm:
-  - 2.0
-  - 2.1
-  - 2.2
+  - 3.0
+  - 2.9
+  - 2.8
 script: "./script/cibuild"
 
 before_script:
