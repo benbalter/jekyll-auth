@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rake", "~> 13.0"
   s.add_dependency "safe_yaml", "~> 1.0"
   s.add_dependency "sinatra-index", "~> 0.0"
-  s.add_dependency "sinatra_auth_github", "~> 1.1"
+  s.add_dependency "sinatra_auth_github", ">= 1.1", "< 3.0"
   s.add_development_dependency "pry", "~> 0.10"
   s.add_development_dependency "rack-test", "~> 0.6"
   s.add_development_dependency "rspec", "~> 3.1"
