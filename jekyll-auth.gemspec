@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sinatra-index", "~> 0.0"
   s.add_dependency "sinatra_auth_github", "~> 1.1"
   s.add_development_dependency "pry", "~> 0.10"
-  s.add_development_dependency "rack-test", "~> 0.6"
+  s.add_development_dependency "rack-test", "~> 2.0"
   s.add_development_dependency "rspec", "~> 3.1"
   s.add_development_dependency "rubocop", "~> 0.49", ">= 0.49.0"
   s.add_development_dependency "rubocop-jekyll", "~> 0.11.0"
