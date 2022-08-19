@@ -33,7 +33,7 @@ describe "jekyll site" do
   it "serves the default 404" do
     get "/a-bad-path"
     expect(last_response.status).to eql(404)
-    expect(last_response.body).to eql(/Not ?Found/i)
+    expect(last_response.body).to eql(%r!Not ?Found!i)
   end
 
   it "serves a custom 404" do
