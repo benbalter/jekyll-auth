@@ -23,6 +23,7 @@ Style/DoubleNegation:
 AllCops:
   Exclude:
     - vendor/**/*
+    - templates/**/*
 
 Jekyll/NoPutsAllowed:
   Enabled: false
