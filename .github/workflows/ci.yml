@@ -1,0 +1,24 @@
+on: push
+name: CI
+jobs: 
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          ruby-version: 3.0
+      
+      - name: Setup Git
+        run: | 
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+
+      - name: Bootstrap
+        run: script/bootstrap 
+
+      - name: test
+        run: script/cibuild
