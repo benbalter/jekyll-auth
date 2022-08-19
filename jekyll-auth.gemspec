@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency "jekyll", "~> 4.0"
   s.add_dependency "mercenary", "~> 0.3"
   s.add_dependency "rack", "~> 1.6"
-  s.add_dependency "rack-protection", "~> 1.5", ">= 1.5.5"
+  s.add_dependency "rack-protection", ">= 1.5.5", "< 3.0"
   s.add_dependency "rack-ssl-enforcer", "~> 0.2"
   s.add_dependency "rake", "~> 13.0"
   s.add_dependency "safe_yaml", "~> 1.0"
