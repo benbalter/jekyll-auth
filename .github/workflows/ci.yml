@@ -11,6 +11,11 @@ jobs:
         with:
           bundler-cache: true
           ruby-version: 3.0
+      
+      - name: Setup Git
+        run: | 
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
 
       - name: Bootstrap
         run: script/bootstrap 
