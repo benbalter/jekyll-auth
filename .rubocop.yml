@@ -1,5 +1,6 @@
+require: rubocop-jekyll
 inherit_gem:
-  jekyll: .rubocop.yml
+  rubocop-jekyll: .rubocop.yml
 
 Style/Documentation:
   Enabled: false
@@ -7,10 +8,10 @@ Style/Documentation:
 Metrics/MethodLength:
   Enabled: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: false
 
-Style/FileName:
+Naming/FileName:
   Enabled: false
 
 Metrics/BlockLength:
@@ -22,6 +23,7 @@ Style/DoubleNegation:
 AllCops:
   Exclude:
     - vendor/**/*
+    - templates/**/*
 
 Jekyll/NoPutsAllowed:
   Enabled: false
